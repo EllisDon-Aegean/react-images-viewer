@@ -333,13 +333,14 @@ class ImgsViewer extends Component {
     );
   }
   renderHeader(theme) {
-    const { closeBtnTitle, customControls, onClose, showCloseBtn } = this.props;
+    const { imgs, currImg, closeBtnTitle, customControls, onClose, showCloseBtn } = this.props;
 
     return (
       <Header
         theme={theme}
         customControls={customControls}
         onClose={onClose}
+        caption={imgs[currImg].caption}
         showCloseBtn={showCloseBtn}
         closeBtnTitle={closeBtnTitle}
       />
@@ -353,7 +354,6 @@ class ImgsViewer extends Component {
     return (
       <Footer
         theme={theme}
-        caption={imgs[currImg].caption}
         countCurr={currImg + 1}
         countSeparator={imgCountSeparator}
         countTotal={imgs.length}

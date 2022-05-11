@@ -84,6 +84,8 @@ class Gallery extends Component {
         <ImgsViewer
           backdropCloseable
           currImg={this.state.currImg}
+          closeBtnTitle={"test"}
+          customControls={[<button></button>]}
           imgs={this.props.imgs}
           isOpen={this.state.isOpen}
           onClickImg={this.handleClickImg}

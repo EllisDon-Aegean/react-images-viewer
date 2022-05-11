@@ -4,8 +4,8 @@ import { css, StyleSheet } from 'aphrodite/no-important'
 import defaults from '../theme'
 import { deepMerge } from '../utils/util'
 
-function Footer ({ caption, countCurr, countSeparator, countTotal, showCount, theme, ...props }) {
-  if (!caption && !showCount) return null
+function Footer ({ countCurr, countSeparator, countTotal, showCount, theme, ...props }) {
+  if (!showCount) return null
 
   const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
 
@@ -19,11 +19,6 @@ function Footer ({ caption, countCurr, countSeparator, countTotal, showCount, th
 
   return (
     <div className={css(classes.footer)} {...props}>
-      {caption ? (
-        <figcaption className={css(classes.footerCaption)}>
-          {caption}
-        </figcaption>
-      ) : <span />}
       {imgCount}
     </div>
   )

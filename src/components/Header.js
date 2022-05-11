@@ -6,21 +6,28 @@ import defaults from '../theme'
 import { deepMerge } from '../utils/util'
 import Icon from './Icon'
 
-function Header ({ customControls, onClose, showCloseBtn, closeBtnTitle, theme, ...props }) {
+function Header ({ caption, customControls, onClose, showCloseBtn, closeBtnTitle, theme, ...props }) {
   const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
 
   return (
     <div className={css(classes.header)} {...props}>
-      {customControls ? customControls : <span />}
       {!!showCloseBtn && (
-        <button
-          title={closeBtnTitle}
-          className={css(classes.close)}
-          onClick={onClose}
-        >
-          <Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />
-        </button>
+        <div className={css(classes.titlediv)}>
+          <button
+            title={closeBtnTitle}
+            className={css(classes.close)}
+            onClick={onClose}
+          >
+            <Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />
+          </button>
+          <span className={css(classes.title)}>{caption}</span>
+        </div>
       )}
+      {customControls ? 
+      <div className={css(classes.controls)}>
+      {customControls}
+      </div>
+       : <span />}
     </div>
   )
 }
@@ -31,13 +38,28 @@ Header.propTypes = {
   onClose: PropTypes.func.isRequired,
   showCloseBtn: PropTypes.bool,
   closeBtnTitle: PropTypes.string,
+  caption: PropTypes.string
 }
 
 const defaultStyles = {
   header: {
     display: 'flex',
-    justifyContent: 'space-between',
     height: defaults.header.height,
+    position: 'relative',
+    width: '65vw'
+  },
+  controls: {
+    position: 'absolute',
+    right: '0px'
+  },
+  titlediv: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  title: {
+    verticalAlign: 'middle',
+    color: defaults.footer.count.color,
+    display: 'inline-block'
   },
   close: {
     background: 'none',
@@ -51,7 +73,6 @@ const defaultStyles = {
 
     // increase hit area
     height: 40,
-    marginRight: -10,
     padding: 10,
     width: 40,
   }
