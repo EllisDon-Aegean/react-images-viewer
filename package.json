@@ -94,7 +94,6 @@
   "dependencies": {
     "aphrodite": "^2.2.2",
     "prop-types": "^15.6.2",
-    "react-scrolllock": "^3.0.1",
-    "react-transition-group": "^4.4.2"
+    "react-scrolllock": "^3.0.1"
   }
 }
