@@ -9,7 +9,6 @@ import Container from "./components/Container";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import PaginatedThumbnails from "./components/PaginatedThumbnails";
-import Portal from "./components/Portal";
 import DefaultSpinner from "./components/Spinner";
 
 import { bindFunctions, canUseDom, deepMerge } from "./utils/util";
@@ -382,7 +381,7 @@ class ImgsViewer extends Component {
   render() {
     return (
       <ThemeContext.Provider value={this.state}>
-        <Portal> {this.renderDialog(this.state)} </Portal>
+        {this.renderDialog(this.state)}
       </ThemeContext.Provider>
     );
   }
