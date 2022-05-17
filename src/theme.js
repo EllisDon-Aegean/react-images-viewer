@@ -28,7 +28,8 @@ theme.footer = {
   color: '#fff',
   count: {
     color: 'rgba(255, 255, 255, .75)',
-    fontSize: '.85em'
+    fontSize: '.85em',
+    font: "Arial"
   },
   height: 40,
   gutter: {

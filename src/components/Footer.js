@@ -26,8 +26,9 @@ function Footer ({ countCurr, countSeparator, countTotal, showCount, theme, ...p
 
   const FooterCountDiv = styled.div`
     color: ${(props) => props.defaults.footer.count.color};
-    font-size: ${(props) => props.defaults.footer.count.fontSize}px;
+    font-size: ${(props) => props.defaults.footer.count.fontSize};
     padding-left: 1em; // add a small gutter for the caption
+    font-family: ${(props) => props.defaults.footer.count.font};
   `;
 
   const imgCount = showCount ? (
