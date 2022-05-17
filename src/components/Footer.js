@@ -1,26 +1,47 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { css, StyleSheet } from 'aphrodite/no-important'
+import styled from 'styled-components';
 import defaults from '../theme'
 import { deepMerge } from '../utils/util'
 
 function Footer ({ countCurr, countSeparator, countTotal, showCount, theme, ...props }) {
   if (!showCount) return null
 
-  const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
+  //const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
+
+  const FooterDiv = styled.div`
+    box-sizing: border-box;
+    color: ${(props) => props.defaults.footer.color};
+    cursor: auto;
+    display: flex;
+    justify-content: space-between;
+    left: 0;
+    line-height: 1.3;
+    padding-top: ${(props) => props.defaults.footer.gutter.vertical}px;
+    padding-right: ${(props) => props.defaults.footer.gutter.horizontal}px;
+    padding-bottom: ${(props) => props.defaults.footer.gutter.vertical}px;
+    padding-left: ${(props) => props.defaults.footer.gutter.horizontal}px;
+  `;
+
+  const FooterCountDiv = styled.div`
+    color: ${(props) => props.defaults.footer.count.color};
+    font-size: ${(props) => props.defaults.footer.count.fontSize}px;
+    padding-left: 1em; // add a small gutter for the caption
+  `;
 
   const imgCount = showCount ? (
-    <div className={css(classes.footerCount)}>
+    <FooterCountDiv defaults={defaults}>
       {countCurr}
       {countSeparator}
       {countTotal}
-    </div>
+    </FooterCountDiv>
   ) : <span />
 
   return (
-    <div className={css(classes.footer)} {...props}>
+    <FooterDiv defaults={defaults}>
       {imgCount}
-    </div>
+    </FooterDiv>
   )
 }
 

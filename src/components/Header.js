@@ -59,7 +59,8 @@ const defaultStyles = {
   title: {
     verticalAlign: 'middle',
     color: defaults.footer.count.color,
-    display: 'inline-block'
+    display: 'inline-block',
+    fontFamily: defaults.header.font
   },
   close: {
     background: 'none',

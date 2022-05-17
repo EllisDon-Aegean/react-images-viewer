@@ -45,7 +45,6 @@
   },
   "homepage": "https://github.com/guonanci/react-images-viewer#readme",
   "devDependencies": {
-    "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.5",
@@ -94,6 +93,7 @@
   "dependencies": {
     "aphrodite": "^2.2.2",
     "prop-types": "^15.6.2",
-    "react-scrolllock": "^3.0.1"
+    "react-scrolllock": "^3.0.1",
+    "styled-components": "^5.3.5"
   }
 }

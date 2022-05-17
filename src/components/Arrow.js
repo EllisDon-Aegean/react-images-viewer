@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { css, StyleSheet } from "aphrodite/no-important";
+import styled from 'styled-components';
 
 import defaults from "../theme";
 import { deepMerge } from "../utils/util";
@@ -17,6 +18,9 @@ function Arrow({ direction, icon, onClick, size, theme, ...props }) {
         classes["arrow__direction__" + direction],
         size && classes["arrow__size__" + size]
       )}
+      // className={
+      //   `arrow arrow__direction__${direction} arrow__size__${size}`
+      // }
       onClick={onClick}
       onTouchEnd={onClick}
       {...props}
@@ -28,6 +32,48 @@ function Arrow({ direction, icon, onClick, size, theme, ...props }) {
     </button>
   );
 }
+
+// const ArrowButton = styled(ArrowButton)`
+//   .arrow {
+//     background: none;
+//     border: none;
+//     border-radius: 4px;
+//     cursor: pointer;
+//     outline: none;
+//     padding: 10px;
+//     position: absolute;
+//     top: 50%;
+
+//     webkit-touch-callout: none;
+//     user-select: none;
+//   }
+
+//   .arrow__size__medium: {
+//     height: ${defaults.arrow.height}px;
+//     margin-top: ${defaults.arrow.height / -2}px;
+//     width: 40px;
+
+//     "@media (min-width: 768px)": {
+//       width: 70px;
+//     };
+//   }
+//   .arrow__size__small: {
+//     height: ${defaults.thumbnail.size}px;
+//     margin-top: ${defaults.thumbnail.size / -2};
+//     width: 30px;
+
+//     "@media (min-width: 500px)": {
+//       width: 40px;
+//     };
+//   }
+
+//   .arrow__direction__right: {
+//     right: ${defaults.container.gutter.horizontal}px;
+//   }
+//   arrow__direction__left: {
+//     left: ${defaults.container.gutter.horizontal}px;
+//   }
+// `;
 
 Arrow.propTypes = {
   theme: PropTypes.object,
