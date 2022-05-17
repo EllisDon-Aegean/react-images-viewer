@@ -14,6 +14,7 @@ const globals = {
   'react-scrolllock': 'ScrollLock',
   'react-transition-group': 'ReactTransitionGroup',
   'react-spinners': 'BounceLoader',
+  'styled-components': 'styled-components'
 }
 
 const external = Object.keys(globals)

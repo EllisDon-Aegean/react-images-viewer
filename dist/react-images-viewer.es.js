@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
 import { css, StyleSheet } from 'aphrodite/no-important';
+import styled from 'styled-components';
 import { StyleSheet as StyleSheet$1, css as css$1 } from 'aphrodite';
 import ScrollLock from 'react-scrolllock';
 
@@ -21,7 +22,8 @@ theme.container = {
 
   // header
 };theme.header = {
-  height: 40
+  height: 40,
+  font: "Arial"
 };
 theme.close = {
   fill: 'white'
@@ -37,7 +39,8 @@ theme.close = {
   gutter: {
     horizontal: 0,
     vertical: 5
-  }
+  },
+  font: "Arial"
 
   // thumbnails
 };theme.thumbnail = {
@@ -130,6 +133,14 @@ var possibleConstructorReturn = function (self, call) {
   }
 
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
+
+var taggedTemplateLiteral = function (strings, raw) {
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
 };
 
 function deepMerge(source) {
@@ -234,8 +245,11 @@ function Arrow(_ref) {
     "button",
     _extends({
       type: "button" // default: submit
-      , className: css(classes.arrow, classes["arrow__direction__" + direction], size && classes["arrow__size__" + size]),
-      onClick: onClick,
+      , className: css(classes.arrow, classes["arrow__direction__" + direction], size && classes["arrow__size__" + size])
+      // className={
+      //   `arrow arrow__direction__${direction} arrow__size__${size}`
+      // }
+      , onClick: onClick,
       onTouchEnd: onClick
     }, props),
     React.createElement(Icon, {
@@ -244,6 +258,48 @@ function Arrow(_ref) {
     })
   );
 }
+
+// const ArrowButton = styled(ArrowButton)`
+//   .arrow {
+//     background: none;
+//     border: none;
+//     border-radius: 4px;
+//     cursor: pointer;
+//     outline: none;
+//     padding: 10px;
+//     position: absolute;
+//     top: 50%;
+
+//     webkit-touch-callout: none;
+//     user-select: none;
+//   }
+
+//   .arrow__size__medium: {
+//     height: ${defaults.arrow.height}px;
+//     margin-top: ${defaults.arrow.height / -2}px;
+//     width: 40px;
+
+//     "@media (min-width: 768px)": {
+//       width: 70px;
+//     };
+//   }
+//   .arrow__size__small: {
+//     height: ${defaults.thumbnail.size}px;
+//     margin-top: ${defaults.thumbnail.size / -2};
+//     width: 30px;
+
+//     "@media (min-width: 500px)": {
+//       width: 40px;
+//     };
+//   }
+
+//   .arrow__direction__right: {
+//     right: ${defaults.container.gutter.horizontal}px;
+//   }
+//   arrow__direction__left: {
+//     left: ${defaults.container.gutter.horizontal}px;
+//   }
+// `;
 
 Arrow.propTypes = {
   theme: PropTypes.object,
@@ -300,13 +356,33 @@ var defaultStyles = {
   }
 };
 
+var _templateObject = taggedTemplateLiteral(['\n    align-items: center;\n    background: ', ';\n    box-sizing: border-box;\n    display: flex;\n    height: 100%;\n    justify-content: center;\n    left: 0;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n    position: fixed;\n    top: 0;\n    width: 100%;\n    z-index: ', ';\n  '], ['\n    align-items: center;\n    background: ', ';\n    box-sizing: border-box;\n    display: flex;\n    height: 100%;\n    justify-content: center;\n    left: 0;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n    position: fixed;\n    top: 0;\n    width: 100%;\n    z-index: ', ';\n  ']);
+
+var ContainerDiv = styled.div(_templateObject, function (props) {
+  return props.defaults.container.background;
+}, function (props) {
+  return props.defaults.container.gutter.vertical;
+}, function (props) {
+  return props.defaults.container.gutter.horizontal;
+}, function (props) {
+  return props.defaults.container.gutter.vertical;
+}, function (props) {
+  return props.defaults.container.gutter.horizontal;
+}, function (props) {
+  return props.defaults.container.zIndex;
+});
+
 function Container(props) {
   var classes = StyleSheet.create(deepMerge(defaultStyles$1, props.theme));
 
-  return React.createElement('div', _extends({
-    id: 'viewerBackdrop',
-    className: css(classes.container)
-  }, props));
+  return (
+    // <div
+    //   id="viewerBackdrop"
+    //   className={css(classes.container)}
+    //   {...props}
+    // />
+    React.createElement(ContainerDiv, _extends({ defaults: theme, id: 'viewerBackdrop' }, props))
+  );
 }
 
 Container.propTypes = {
@@ -333,6 +409,9 @@ var defaultStyles$1 = {
   }
 };
 
+var _templateObject$1 = taggedTemplateLiteral(['\n    box-sizing: border-box;\n    color: ', ';\n    cursor: auto;\n    display: flex;\n    justify-content: space-between;\n    left: 0;\n    line-height: 1.3;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n  '], ['\n    box-sizing: border-box;\n    color: ', ';\n    cursor: auto;\n    display: flex;\n    justify-content: space-between;\n    left: 0;\n    line-height: 1.3;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n  ']),
+    _templateObject2 = taggedTemplateLiteral(['\n    color: ', ';\n    font-size: ', 'px;\n    padding-left: 1em; // add a small gutter for the caption\n  '], ['\n    color: ', ';\n    font-size: ', 'px;\n    padding-left: 1em; // add a small gutter for the caption\n  ']);
+
 function Footer(_ref) {
   var countCurr = _ref.countCurr,
       countSeparator = _ref.countSeparator,
@@ -343,19 +422,37 @@ function Footer(_ref) {
 
   if (!showCount) return null;
 
-  var classes = StyleSheet.create(deepMerge(defaultStyles$2, theme$$1));
+  //const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
+
+  var FooterDiv = styled.div(_templateObject$1, function (props) {
+    return props.defaults.footer.color;
+  }, function (props) {
+    return props.defaults.footer.gutter.vertical;
+  }, function (props) {
+    return props.defaults.footer.gutter.horizontal;
+  }, function (props) {
+    return props.defaults.footer.gutter.vertical;
+  }, function (props) {
+    return props.defaults.footer.gutter.horizontal;
+  });
+
+  var FooterCountDiv = styled.div(_templateObject2, function (props) {
+    return props.defaults.footer.count.color;
+  }, function (props) {
+    return props.defaults.footer.count.fontSize;
+  });
 
   var imgCount = showCount ? React.createElement(
-    'div',
-    { className: css(classes.footerCount) },
+    FooterCountDiv,
+    { defaults: theme },
     countCurr,
     countSeparator,
     countTotal
   ) : React.createElement('span', null);
 
   return React.createElement(
-    'div',
-    _extends({ className: css(classes.footer) }, props),
+    FooterDiv,
+    { defaults: theme },
     imgCount
   );
 }
@@ -460,7 +557,8 @@ var defaultStyles$3 = {
   title: {
     verticalAlign: 'middle',
     color: theme.footer.count.color,
-    display: 'inline-block'
+    display: 'inline-block',
+    fontFamily: theme.header.font
   },
   close: {
     background: 'none',
