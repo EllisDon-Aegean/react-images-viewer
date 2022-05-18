@@ -43,7 +43,7 @@ const HeaderDiv = styled.div`
   display: flex;
   height: ${(props) => props.defaults.header.height};
   position: relative;
-  width: 100%;
+  width: 65vw;
 `;
 
 const ControlsDiv = styled.div`
