@@ -356,7 +356,7 @@ var defaultStyles$1 = {
   }
 };
 
-var _templateObject$3 = taggedTemplateLiteral(['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 100%;\n'], ['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 100%;\n']),
+var _templateObject$3 = taggedTemplateLiteral(['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 65vw;\n'], ['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 65vw;\n']),
     _templateObject2$1 = taggedTemplateLiteral(['\n  position: absolute;\n  right: 0px;\n'], ['\n  position: absolute;\n  right: 0px;\n']),
     _templateObject3 = taggedTemplateLiteral(['\n  display: flex;\n  align-items: center;\n'], ['\n  display: flex;\n  align-items: center;\n']),
     _templateObject4 = taggedTemplateLiteral(['\n  vertical-align: middle;\n  color: ', ';\n  display: inline-block;\n  font-family: ', ';\n'], ['\n  vertical-align: middle;\n  color: ', ';\n  display: inline-block;\n  font-family: ', ';\n']),
