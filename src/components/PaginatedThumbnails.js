@@ -1,23 +1,34 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { css, StyleSheet } from 'aphrodite/no-important'
+import styled from 'styled-components'
 
 import Thumbnail from './Thumbnail'
 import Arrow from './Arrow'
 import theme from '../theme'
 
-const classes = StyleSheet.create({
-  paginatedThumbnails: {
-    bottom: theme.container.gutter.vertical,
-    height: theme.thumbnail.size,
-    padding: '0 50px',
-    position: 'absolute',
-    textAlign: 'center',
-    whiteSpace: 'nowrap',
-    left: '50%',
-    transform: 'translateX(-50%)',
-  }
-})
+// const classes = StyleSheet.create({
+//   paginatedThumbnails: {
+//     bottom: theme.container.gutter.vertical,
+//     height: theme.thumbnail.size,
+//     padding: '0 50px',
+//     position: 'absolute',
+//     textAlign: 'center',
+//     whiteSpace: 'nowrap',
+//     left: '50%',
+//     transform: 'translateX(-50%)',
+//   }
+// })
+
+const PaginatedThumbnailsDiv = styled.div`
+  bottom: ${(props) => props.theme.container.gutter.vertical + "px"};
+  height: ${(props) => props.theme.thumbnail.size + "px"};
+  padding: 0 50px;
+  position: absolute;
+  text-align: center;
+  white-space: nowrap;
+  left: 50%;
+  transform: translateX(-50%);
+`;
 
 const arrowStyles = {
   height: theme.thumbnail.size + (theme.thumbnail.gutter * 2),
@@ -142,7 +153,7 @@ export default class PaginatedThumbnails extends Component {
     }
 
     return (
-      <div className={css(classes.paginatedThumbnails)}>
+      <PaginatedThumbnailsDiv theme={theme}>
         {this.renderArrowPrev(theme)}
         {thumbnails.map((img, idx) => (
           <Thumbnail
@@ -155,7 +166,7 @@ export default class PaginatedThumbnails extends Component {
           />
         ))}
         {this.renderArrowNext(theme)}
-      </div>
+      </PaginatedThumbnailsDiv>
     )
   }
 }

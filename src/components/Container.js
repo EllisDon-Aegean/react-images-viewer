@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { css, StyleSheet } from 'aphrodite/no-important'
 import styled from 'styled-components';
 
 import defaults from '../theme'
-import { deepMerge } from '../utils/util'
 
 const ContainerDiv = styled.div`
     align-items: center;
@@ -25,7 +23,7 @@ const ContainerDiv = styled.div`
   `;
 
 function Container (props) {
-  const classes = StyleSheet.create(deepMerge(defaultStyles, props.theme))
+  // const classes = StyleSheet.create(deepMerge(defaultStyles, props.theme))
 
   return (
     // <div

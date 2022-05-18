@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Component, Fragment } from "react";
-import { StyleSheet, css } from "aphrodite";
 import ScrollLock from "react-scrolllock";
+import styled from "styled-components";
 
 import defaultTheme from "./theme";
 import Arrow from "./components/Arrow";
@@ -33,9 +33,9 @@ class ImgsViewer extends Component {
     super(props);
 
     this.theme = deepMerge(defaultTheme, this.props.theme);
-    this.classes = StyleSheet.create(
-      deepMerge(defaultStyles, this.props.theme)
-    );
+    // this.classes = StyleSheet.create(
+    //   deepMerge(defaultStyles, this.props.theme)
+    // );
     this.toggleTheme = (theme) => {
       this.setState(() => ({ theme }));
     };
@@ -249,8 +249,8 @@ class ImgsViewer extends Component {
             >
               <Fragment>
                 <div
-                  className={css(this.classes.content)}
                   style={{
+                    position: "relative",
                     marginBottom: offsetThumbnails,
                     maxWidth: width,
                   }}
@@ -290,20 +290,20 @@ class ImgsViewer extends Component {
     }px`;
 
     return (
-      <figure className={css(this.classes.figure)}>
-        <img
-          className={css(this.classes.img, imgLoaded && this.classes.imgLoaded)}
+      <Figure>
+        <Img
           onClick={onClickImg}
           sizes={sizes}
           alt={img.alt}
           src={img.src}
           srcSet={sourceSet}
+          imgLoaded={imgLoaded}
           style={{
             cursor: onClickImg ? "pointer" : "auto",
             maxHeight: `calc(100vh - ${heightOffset}`,
           }}
         />
-      </figure>
+      </Figure>
     );
   }
   renderThumbnails(theme) {
@@ -367,14 +367,15 @@ class ImgsViewer extends Component {
     const Spinner = spinner;
     if (spinnerDisabled) return null;
     return (
-      <div
-        className={css(
-          this.classes.spinner,
-          !imgLoaded && this.classes.spinnerActive
-        )}
+      <SpinnerDiv
+        // className={css(
+        //   this.classes.spinner,
+        //   !imgLoaded && this.classes.spinnerActive
+        // )}
+        spinnerActive={!imgLoaded}
       >
         <Spinner color={spinnerColor} size={spinnerSize} />
-      </div>
+      </SpinnerDiv>
     );
   }
 
@@ -440,6 +441,40 @@ ImgsViewer.defaultProps = {
   thumbnailOffset: 2,
   width: 1024,
 };
+
+const Figure = styled.figure`
+  margin: 0px;
+`;
+
+const SpinnerDiv = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  // opacity animation to make spinner appear with delay
+  opacity: ${(props) => props.spinnerActive ? 1 : 0};
+  transition: opacity .3s;
+  pointer-events: none;
+`;
+
+const Img = styled.img`
+
+  display: block; // removes browser default gutter
+  height: auto;
+  margin: 0 auto; // main center on very short screens or very narrow img
+  max-width: 100%;
+
+  // disable user select
+  -webkit-touch-callout: none;
+  user-select: none;
+
+  // opacity animation on image load
+  opacity: 0;
+  transition: opacity .3s;
+
+  opacity: ${(props) => props.imgLoaded && "1"};
+`;
 
 const defaultStyles = {
   content: {

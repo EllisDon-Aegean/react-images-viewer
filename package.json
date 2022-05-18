@@ -94,7 +94,6 @@
     "react-dom": "^15.0 || ^16.0 || ^17.0"
   },
   "dependencies": {
-    "aphrodite": "^2.2.2",
     "prop-types": "^15.6.2",
     "react-scrolllock": "^3.0.1",
     "styled-components": "^5.3.5"

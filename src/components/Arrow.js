@@ -1,133 +1,106 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { css, StyleSheet } from "aphrodite/no-important";
 import styled from 'styled-components';
 
 import defaults from "../theme";
-import { deepMerge } from "../utils/util";
 import Icon from "./Icon";
 
-function Arrow({ direction, icon, onClick, size, theme, ...props }) {
-  const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+const ArrowButton = styled.button`
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  padding: 10px; // increase hit area
+  position: absolute;
+  top: 50%;
+
+  // disable user select
+  -webkit-touch-callout: none;
+  user-select: none;
+
+  right: ${(props) => props.right ? props.defaults.container.gutter.horizontal + "px" : "none"};
+  left: ${(props) => props.right ? "none" : props.defaults.container.gutter.horizontal + "px"};
+
+  height: ${(props) => props.height + "px"};
+  margin-top: ${(props) => props.height / -2 + "px"};
+  width: 40px;
+
+  @media (min-width: 768px) {
+    width: 70,
+  };
+`;
+
+function Arrow({ direction, icon, onClick, theme, size, ...props }) {
+  const height = size == "medium" ? defaults.arrow.height : defaults.thumbnail.size;
 
   return (
-    <button
+    <ArrowButton
       type="button" // default: submit
-      className={css(
-        classes.arrow,
-        classes["arrow__direction__" + direction],
-        size && classes["arrow__size__" + size]
-      )}
-      // className={
-      //   `arrow arrow__direction__${direction} arrow__size__${size}`
-      // }
+      right={direction && direction == "right"}
+      height={height}
       onClick={onClick}
       onTouchEnd={onClick}
+      defaults={defaults}
       {...props}
     >
       <Icon
         fill={(!!theme.arrow && theme.arrow.fill) || defaults.arrow.fill}
         type={icon}
       />
-    </button>
+    </ArrowButton>
   );
 }
-
-// const ArrowButton = styled(ArrowButton)`
-//   .arrow {
-//     background: none;
-//     border: none;
-//     border-radius: 4px;
-//     cursor: pointer;
-//     outline: none;
-//     padding: 10px;
-//     position: absolute;
-//     top: 50%;
-
-//     webkit-touch-callout: none;
-//     user-select: none;
-//   }
-
-//   .arrow__size__medium: {
-//     height: ${defaults.arrow.height}px;
-//     margin-top: ${defaults.arrow.height / -2}px;
-//     width: 40px;
-
-//     "@media (min-width: 768px)": {
-//       width: 70px;
-//     };
-//   }
-//   .arrow__size__small: {
-//     height: ${defaults.thumbnail.size}px;
-//     margin-top: ${defaults.thumbnail.size / -2};
-//     width: 30px;
-
-//     "@media (min-width: 500px)": {
-//       width: 40px;
-//     };
-//   }
-
-//   .arrow__direction__right: {
-//     right: ${defaults.container.gutter.horizontal}px;
-//   }
-//   arrow__direction__left: {
-//     left: ${defaults.container.gutter.horizontal}px;
-//   }
-// `;
 
 Arrow.propTypes = {
   theme: PropTypes.object,
   direction: PropTypes.oneOf(["left", "right"]),
   icon: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
-  size: PropTypes.oneOf(["medium", "small"]).isRequired,
+  onClick: PropTypes.func.isRequired
 };
-Arrow.defaultProps = {
-  size: "medium",
-};
-const defaultStyles = {
-  arrow: {
-    background: "none",
-    border: "none",
-    borderRadius: 4,
-    cursor: "pointer",
-    outline: "none",
-    padding: 10, // increase hit area
-    position: "absolute",
-    top: "50%",
+// const defaultStyles = {
+//   arrow: {
+//     background: "none",
+//     border: "none",
+//     borderRadius: 4,
+//     cursor: "pointer",
+//     outline: "none",
+//     padding: 10, // increase hit area
+//     position: "absolute",
+//     top: "50%",
 
-    // disable user select
-    WebkitTouchCallout: "none",
-    userSelect: "none",
-  },
+//     // disable user select
+//     WebkitTouchCallout: "none",
+//     userSelect: "none",
+//   },
 
-  // sizes
-  arrow__size__medium: {
-    height: defaults.arrow.height,
-    marginTop: defaults.arrow.height / -2,
-    width: 40,
+//   // sizes
+//   arrow__size__medium: {
+//     height: defaults.arrow.height,
+//     marginTop: defaults.arrow.height / -2,
+//     width: 40,
 
-    "@media (min-width: 768px)": {
-      width: 70,
-    },
-  },
-  arrow__size__small: {
-    height: defaults.thumbnail.size,
-    marginTop: defaults.thumbnail.size / -2,
-    width: 30,
+//     "@media (min-width: 768px)": {
+//       width: 70,
+//     },
+//   },
+//   arrow__size__small: {
+//     height: defaults.thumbnail.size,
+//     marginTop: defaults.thumbnail.size / -2,
+//     width: 30,
 
-    "@media (min-width: 500px)": {
-      width: 40,
-    },
-  },
+//     "@media (min-width: 500px)": {
+//       width: 40,
+//     },
+//   },
 
-  // direciton
-  arrow__direction__right: {
-    right: defaults.container.gutter.horizontal,
-  },
-  arrow__direction__left: {
-    left: defaults.container.gutter.horizontal,
-  },
-};
+//   // direciton
+//   arrow__direction__right: {
+//     right: defaults.container.gutter.horizontal,
+//   },
+//   arrow__direction__left: {
+//     left: defaults.container.gutter.horizontal,
+//   },
+// };
 
 export default Arrow;

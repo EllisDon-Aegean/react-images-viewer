@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { css, StyleSheet } from 'aphrodite/no-important'
 import styled from 'styled-components';
 import defaults from '../theme'
-import { deepMerge } from '../utils/util'
 
 function Footer ({ countCurr, countSeparator, countTotal, showCount, theme, ...props }) {
   if (!showCount) return null

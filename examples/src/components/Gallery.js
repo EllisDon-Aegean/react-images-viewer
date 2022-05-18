@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ImgsViewer from 'react-images-viewer'
 import PropTypes from 'prop-types'
-import { css, StyleSheet } from 'aphrodite/no-important'
+import styled from 'styled-components'
 
 class Gallery extends Component {
   constructor () {
@@ -58,21 +58,20 @@ class Gallery extends Component {
 
     const gallery = imgs.filter(i => i.useForDemo).map((obj, i) => {
       return (
-        <a
+        <ThumbnailAnchor
           href={obj.src}
-          className={css(classes.thumbnail, classes[obj.orientation])}
           key={i}
           onClick={(e) => this.openImgsViewer(i, e)}
         >
-          <img src={obj.thumbnail} className={css(classes.source)} />
-        </a>
+          <SourceImg src={obj.thumbnail}/>
+        </ThumbnailAnchor>
       )
     })
 
     return (
-      <div className={css(classes.gallery)}>
+      <GalleryDiv gutter={gutter}>
         {gallery}
-      </div>
+      </GalleryDiv>
     )
   }
   render () {
@@ -122,52 +121,36 @@ const gutter = {
   small: 2,
   large: 4,
 }
-const classes = StyleSheet.create({
-  gallery: {
-    marginRight: -gutter.small,
-    overflow: 'hidden',
-    '@media (min-width: 500px)': {
-      marginRight: -gutter.large,
-    }
-  },
 
-  // anchor
-  thumbnail: {
-    boxSizing: 'border-box',
-    display: 'block',
-    float: 'left',
-    lineHeight: 0,
-    paddingRight: gutter.small,
-    paddingBottom: gutter.small,
-    overflow: 'hidden',
+const GalleryDiv = styled.div`
+  margin-right: ${(props) => -props.gutter.small};
+  overflow: hidden;
+  @media (min-width: 500px) {
+    margin-right: ${(props) => -props.gutter.large};
+  }
+`;
 
-    '@media (min-width: 500px)': {
-      paddingRight: gutter.large,
-      paddingBottom: gutter.large,
-    }
-  },
+const ThumbnailAnchor = styled.a`
+  box-sizing: border-box;
+  display: block;
+  float: left;
+  line-height: 0px;
+  padding-right: ${gutter.small + "px"};
+  padding-bottom: ${gutter.small + "px"};
+  overflow: hidden;
 
-  // orientation
-  landscape: {
-    width: '30%',
-  },
-  square: {
-    paddingBottom: gutter.large,
-    width: '40%',
+  @media (min-width: 500px) {
+    padding-right: ${gutter.large + "px"};
+    padding-left: ${gutter.large + "px"};
+  }
+`;
 
-    '@media (min-width: 500px)': {
-      paddingBottom: gutter.large,
-    }
-  },
-
-  // actual <img />
-  source: {
-    border: 0,
-    display: 'block',
-    height: 'auto',
-    maxWidth: '100%',
-    width: 'auto'
-  },
-})
+const SourceImg = styled.img`
+  border: 0px;
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: auto;
+`;
 
 export default Gallery
