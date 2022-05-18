@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('prop-types'), require('react'), require('aphrodite/no-important'), require('styled-components'), require('aphrodite'), require('react-scrolllock')) :
-  typeof define === 'function' && define.amd ? define(['prop-types', 'react', 'aphrodite/no-important', 'styled-components', 'aphrodite', 'react-scrolllock'], factory) :
-  (global.ImgsViewer = factory(global.PropTypes,global.React,global.aphrodite,global['styled-components'],global.aphrodite,global.ScrollLock));
-}(this, (function (PropTypes,React,noImportant,styled,aphrodite,ScrollLock) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('prop-types'), require('react'), require('styled-components'), require('react-scrolllock')) :
+  typeof define === 'function' && define.amd ? define(['prop-types', 'react', 'styled-components', 'react-scrolllock'], factory) :
+  (global.ImgsViewer = factory(global.PropTypes,global.React,global['styled-components'],global.ScrollLock));
+}(this, (function (PropTypes,React,styled,ScrollLock) { 'use strict';
 
   PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
   var React__default = 'default' in React ? React['default'] : React;
@@ -37,7 +37,8 @@
     color: '#fff',
     count: {
       color: 'rgba(255, 255, 255, .75)',
-      fontSize: '.85em'
+      fontSize: '.85em',
+      font: "Arial"
     },
     height: 40,
     gutter: {
@@ -58,6 +59,18 @@
     fill: '#fff',
     height: 120
   };
+
+  var arrowLeft = (function (fill) {
+  		return "<svg fill=\"" + fill + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 512 512\" xml:space=\"preserve\">\n\t\t<path d=\"M213.7,256L213.7,256L213.7,256L380.9,81.9c4.2-4.3,4.1-11.4-0.2-15.8l-29.9-30.6c-4.3-4.4-11.3-4.5-15.5-0.2L131.1,247.9 c-2.2,2.2-3.2,5.2-3,8.1c-0.1,3,0.9,5.9,3,8.1l204.2,212.7c4.2,4.3,11.2,4.2,15.5-0.2l29.9-30.6c4.3-4.4,4.4-11.5,0.2-15.8 L213.7,256z\"/>\n\t</svg>";
+  });
+
+  var arrowRight = (function (fill) {
+  		return "<svg fill=\"" + fill + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 512 512\" xml:space=\"preserve\">\n\t\t<path d=\"M298.3,256L298.3,256L298.3,256L131.1,81.9c-4.2-4.3-4.1-11.4,0.2-15.8l29.9-30.6c4.3-4.4,11.3-4.5,15.5-0.2l204.2,212.7 c2.2,2.2,3.2,5.2,3,8.1c0.1,3-0.9,5.9-3,8.1L176.7,476.8c-4.2,4.3-11.2,4.2-15.5-0.2L131.3,446c-4.3-4.4-4.4-11.5-0.2-15.8 L298.3,256z\"/>\n\t</svg>";
+  });
+
+  var close = (function (fill) {
+  	return "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"" + fill + "\" class=\"bi bi-arrow-left\" viewBox=\"0 0 16 16\">\n\t\t<path fill-rule=\"evenodd\" d=\"M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z\"/>\n  \t</svg>";
+  });
 
   var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
     return typeof obj;
@@ -147,74 +160,6 @@
     }));
   };
 
-  function deepMerge(source) {
-    var target = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    var extended = Object.assign({}, target);
-
-    Object.keys(source).forEach(function (key) {
-      if (_typeof(source[key]) !== "object" || !source[key]) {
-        extended[key] = source[key];
-      } else {
-        if (!target[key]) {
-          extended[key] = source[key];
-        } else {
-          extended[key] = deepMerge(target[key], source[key]);
-        }
-      }
-    });
-    return extended;
-  }
-  // export function deepMerge(source, target = {}) {
-  //   // initialize with source styles
-  //   const styles = { ...source }
-
-  //   // massage in target styles
-  //   Object.keys(target).forEach(key => {
-  //     if (source[key]) {
-  //       styles[key] = (rsCss, props) => {
-  //         return target[key](source[key](rsCss, props), props)
-  //       }
-  //     } else {
-  //       styles[key] = target[key]
-  //     }
-  //   })
-
-  //   return styles
-  // }
-
-  var canUseDom = !!(typeof window !== "undefined" && window.document && window.document.createElement);
-
-  /**
-   * Bind multiple conponent methods:
-   * @param {this} context
-   * @param {Array} functions
-   *
-   * constructor() {
-   *   ...
-   *   bindFunctions.call(this, ['handleClick', 'handleOther'])
-   * }
-   */
-  function bindFunctions(functions) {
-    var _this = this;
-
-    functions.forEach(function (f) {
-      return _this[f] = _this[f].bind(_this);
-    });
-  }
-
-  var arrowLeft = (function (fill) {
-  		return "<svg fill=\"" + fill + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 512 512\" xml:space=\"preserve\">\n\t\t<path d=\"M213.7,256L213.7,256L213.7,256L380.9,81.9c4.2-4.3,4.1-11.4-0.2-15.8l-29.9-30.6c-4.3-4.4-11.3-4.5-15.5-0.2L131.1,247.9 c-2.2,2.2-3.2,5.2-3,8.1c-0.1,3,0.9,5.9,3,8.1l204.2,212.7c4.2,4.3,11.2,4.2,15.5-0.2l29.9-30.6c4.3-4.4,4.4-11.5,0.2-15.8 L213.7,256z\"/>\n\t</svg>";
-  });
-
-  var arrowRight = (function (fill) {
-  		return "<svg fill=\"" + fill + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 512 512\" xml:space=\"preserve\">\n\t\t<path d=\"M298.3,256L298.3,256L298.3,256L131.1,81.9c-4.2-4.3-4.1-11.4,0.2-15.8l29.9-30.6c4.3-4.4,11.3-4.5,15.5-0.2l204.2,212.7 c2.2,2.2,3.2,5.2,3,8.1c0.1,3-0.9,5.9-3,8.1L176.7,476.8c-4.2,4.3-11.2,4.2-15.5-0.2L131.3,446c-4.3-4.4-4.4-11.5-0.2-15.8 L298.3,256z\"/>\n\t</svg>";
-  });
-
-  var close = (function (fill) {
-  	return "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"" + fill + "\" class=\"bi bi-arrow-left\" viewBox=\"0 0 16 16\">\n\t\t<path fill-rule=\"evenodd\" d=\"M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z\"/>\n  \t</svg>";
-  });
-
   var icons = { arrowLeft: arrowLeft, arrowRight: arrowRight, close: close };
 
   var Icon = function Icon(_ref) {
@@ -235,26 +180,37 @@
     fill: "#fff"
   };
 
+  var _templateObject = taggedTemplateLiteral(["\n  background: none;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  outline: none;\n  padding: 10px; // increase hit area\n  position: absolute;\n  top: 50%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  right: ", ";\n  left: ", ";\n\n  height: ", ";\n  margin-top: ", ";\n  width: 40px;\n\n  @media (min-width: 768px) {\n    width: 70,\n  };\n"], ["\n  background: none;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  outline: none;\n  padding: 10px; // increase hit area\n  position: absolute;\n  top: 50%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  right: ", ";\n  left: ", ";\n\n  height: ", ";\n  margin-top: ", ";\n  width: 40px;\n\n  @media (min-width: 768px) {\n    width: 70,\n  };\n"]);
+
+  var ArrowButton = styled.button(_templateObject, function (props) {
+    return props.right ? props.defaults.container.gutter.horizontal + "px" : "none";
+  }, function (props) {
+    return props.right ? "none" : props.defaults.container.gutter.horizontal + "px";
+  }, function (props) {
+    return props.height + "px";
+  }, function (props) {
+    return props.height / -2 + "px";
+  });
+
   function Arrow(_ref) {
     var direction = _ref.direction,
         icon = _ref.icon,
         onClick = _ref.onClick,
-        size = _ref.size,
         theme$$1 = _ref.theme,
-        props = objectWithoutProperties(_ref, ["direction", "icon", "onClick", "size", "theme"]);
+        size = _ref.size,
+        props = objectWithoutProperties(_ref, ["direction", "icon", "onClick", "theme", "size"]);
 
-    var classes = noImportant.StyleSheet.create(deepMerge(defaultStyles, theme$$1));
+    var height = size == "medium" ? theme.arrow.height : theme.thumbnail.size;
 
     return React__default.createElement(
-      "button",
+      ArrowButton,
       _extends({
         type: "button" // default: submit
-        , className: noImportant.css(classes.arrow, classes["arrow__direction__" + direction], size && classes["arrow__size__" + size])
-        // className={
-        //   `arrow arrow__direction__${direction} arrow__size__${size}`
-        // }
-        , onClick: onClick,
-        onTouchEnd: onClick
+        , right: direction && direction == "right",
+        height: height,
+        onClick: onClick,
+        onTouchEnd: onClick,
+        defaults: theme
       }, props),
       React__default.createElement(Icon, {
         fill: !!theme$$1.arrow && theme$$1.arrow.fill || theme.arrow.fill,
@@ -263,106 +219,16 @@
     );
   }
 
-  // const ArrowButton = styled(ArrowButton)`
-  //   .arrow {
-  //     background: none;
-  //     border: none;
-  //     border-radius: 4px;
-  //     cursor: pointer;
-  //     outline: none;
-  //     padding: 10px;
-  //     position: absolute;
-  //     top: 50%;
-
-  //     webkit-touch-callout: none;
-  //     user-select: none;
-  //   }
-
-  //   .arrow__size__medium: {
-  //     height: ${defaults.arrow.height}px;
-  //     margin-top: ${defaults.arrow.height / -2}px;
-  //     width: 40px;
-
-  //     "@media (min-width: 768px)": {
-  //       width: 70px;
-  //     };
-  //   }
-  //   .arrow__size__small: {
-  //     height: ${defaults.thumbnail.size}px;
-  //     margin-top: ${defaults.thumbnail.size / -2};
-  //     width: 30px;
-
-  //     "@media (min-width: 500px)": {
-  //       width: 40px;
-  //     };
-  //   }
-
-  //   .arrow__direction__right: {
-  //     right: ${defaults.container.gutter.horizontal}px;
-  //   }
-  //   arrow__direction__left: {
-  //     left: ${defaults.container.gutter.horizontal}px;
-  //   }
-  // `;
-
   Arrow.propTypes = {
     theme: PropTypes.object,
     direction: PropTypes.oneOf(["left", "right"]),
     icon: PropTypes.string,
-    onClick: PropTypes.func.isRequired,
-    size: PropTypes.oneOf(["medium", "small"]).isRequired
-  };
-  Arrow.defaultProps = {
-    size: "medium"
-  };
-  var defaultStyles = {
-    arrow: {
-      background: "none",
-      border: "none",
-      borderRadius: 4,
-      cursor: "pointer",
-      outline: "none",
-      padding: 10, // increase hit area
-      position: "absolute",
-      top: "50%",
-
-      // disable user select
-      WebkitTouchCallout: "none",
-      userSelect: "none"
-    },
-
-    // sizes
-    arrow__size__medium: {
-      height: theme.arrow.height,
-      marginTop: theme.arrow.height / -2,
-      width: 40,
-
-      "@media (min-width: 768px)": {
-        width: 70
-      }
-    },
-    arrow__size__small: {
-      height: theme.thumbnail.size,
-      marginTop: theme.thumbnail.size / -2,
-      width: 30,
-
-      "@media (min-width: 500px)": {
-        width: 40
-      }
-    },
-
-    // direciton
-    arrow__direction__right: {
-      right: theme.container.gutter.horizontal
-    },
-    arrow__direction__left: {
-      left: theme.container.gutter.horizontal
-    }
+    onClick: PropTypes.func.isRequired
   };
 
-  var _templateObject = taggedTemplateLiteral(['\n    align-items: center;\n    background: ', ';\n    box-sizing: border-box;\n    display: flex;\n    height: 100%;\n    justify-content: center;\n    left: 0;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n    position: fixed;\n    top: 0;\n    width: 100%;\n    z-index: ', ';\n  '], ['\n    align-items: center;\n    background: ', ';\n    box-sizing: border-box;\n    display: flex;\n    height: 100%;\n    justify-content: center;\n    left: 0;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n    position: fixed;\n    top: 0;\n    width: 100%;\n    z-index: ', ';\n  ']);
+  var _templateObject$1 = taggedTemplateLiteral(['\n    align-items: center;\n    background: ', ';\n    box-sizing: border-box;\n    display: flex;\n    height: 100%;\n    justify-content: center;\n    left: 0;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n    position: fixed;\n    top: 0;\n    width: 100%;\n    z-index: ', ';\n  '], ['\n    align-items: center;\n    background: ', ';\n    box-sizing: border-box;\n    display: flex;\n    height: 100%;\n    justify-content: center;\n    left: 0;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n    position: fixed;\n    top: 0;\n    width: 100%;\n    z-index: ', ';\n  ']);
 
-  var ContainerDiv = styled.div(_templateObject, function (props) {
+  var ContainerDiv = styled.div(_templateObject$1, function (props) {
     return props.defaults.container.background;
   }, function (props) {
     return props.defaults.container.gutter.vertical;
@@ -377,7 +243,7 @@
   });
 
   function Container(props) {
-    var classes = noImportant.StyleSheet.create(deepMerge(defaultStyles$1, props.theme));
+    // const classes = StyleSheet.create(deepMerge(defaultStyles, props.theme))
 
     return (
       // <div
@@ -393,7 +259,7 @@
     theme: PropTypes.object
   };
 
-  var defaultStyles$1 = {
+  var defaultStyles = {
     container: {
       alignItems: 'center',
       backdropColor: theme.container.background,
@@ -413,8 +279,8 @@
     }
   };
 
-  var _templateObject$1 = taggedTemplateLiteral(['\n    box-sizing: border-box;\n    color: ', ';\n    cursor: auto;\n    display: flex;\n    justify-content: space-between;\n    left: 0;\n    line-height: 1.3;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n  '], ['\n    box-sizing: border-box;\n    color: ', ';\n    cursor: auto;\n    display: flex;\n    justify-content: space-between;\n    left: 0;\n    line-height: 1.3;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n  ']),
-      _templateObject2 = taggedTemplateLiteral(['\n    color: ', ';\n    font-size: ', 'px;\n    padding-left: 1em; // add a small gutter for the caption\n  '], ['\n    color: ', ';\n    font-size: ', 'px;\n    padding-left: 1em; // add a small gutter for the caption\n  ']);
+  var _templateObject$2 = taggedTemplateLiteral(['\n    box-sizing: border-box;\n    color: ', ';\n    cursor: auto;\n    display: flex;\n    justify-content: space-between;\n    left: 0;\n    line-height: 1.3;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n  '], ['\n    box-sizing: border-box;\n    color: ', ';\n    cursor: auto;\n    display: flex;\n    justify-content: space-between;\n    left: 0;\n    line-height: 1.3;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n  ']),
+      _templateObject2 = taggedTemplateLiteral(['\n    color: ', ';\n    font-size: ', ';\n    padding-left: 1em; // add a small gutter for the caption\n    font-family: ', ';\n  '], ['\n    color: ', ';\n    font-size: ', ';\n    padding-left: 1em; // add a small gutter for the caption\n    font-family: ', ';\n  ']);
 
   function Footer(_ref) {
     var countCurr = _ref.countCurr,
@@ -428,7 +294,7 @@
 
     //const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
 
-    var FooterDiv = styled.div(_templateObject$1, function (props) {
+    var FooterDiv = styled.div(_templateObject$2, function (props) {
       return props.defaults.footer.color;
     }, function (props) {
       return props.defaults.footer.gutter.vertical;
@@ -444,6 +310,8 @@
       return props.defaults.footer.count.color;
     }, function (props) {
       return props.defaults.footer.count.fontSize;
+    }, function (props) {
+      return props.defaults.footer.count.font;
     });
 
     var imgCount = showCount ? React__default.createElement(
@@ -470,7 +338,7 @@
     showCount: PropTypes.bool
   };
 
-  var defaultStyles$2 = {
+  var defaultStyles$1 = {
     footer: {
       boxSizing: 'border-box',
       color: theme.footer.color,
@@ -494,6 +362,12 @@
     }
   };
 
+  var _templateObject$3 = taggedTemplateLiteral(['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 100%;\n'], ['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 100%;\n']),
+      _templateObject2$1 = taggedTemplateLiteral(['\n  position: absolute;\n  right: 0px;\n'], ['\n  position: absolute;\n  right: 0px;\n']),
+      _templateObject3 = taggedTemplateLiteral(['\n  display: flex;\n  align-items: center;\n'], ['\n  display: flex;\n  align-items: center;\n']),
+      _templateObject4 = taggedTemplateLiteral(['\n  vertical-align: middle;\n  color: ', ';\n  display: inline-block;\n  font-family: ', ';\n'], ['\n  vertical-align: middle;\n  color: ', ';\n  display: inline-block;\n  font-family: ', ';\n']),
+      _templateObject5 = taggedTemplateLiteral(['\n  background: none;\n  border: none;\n  cursor: pointer;\n  outline: none;\n  position: relative;\n  top: 0px;\n  vertical-align: bottom;\n  z-index: 1;\n\n  height: 40px;\n  padding: 10px;\n  width: 40px;\n'], ['\n  background: none;\n  border: none;\n  cursor: pointer;\n  outline: none;\n  position: relative;\n  top: 0px;\n  vertical-align: bottom;\n  z-index: 1;\n\n  height: 40px;\n  padding: 10px;\n  width: 40px;\n']);
+
   function Header(_ref) {
     var caption = _ref.caption,
         customControls = _ref.customControls,
@@ -503,32 +377,31 @@
         theme$$1 = _ref.theme,
         props = objectWithoutProperties(_ref, ['caption', 'customControls', 'onClose', 'showCloseBtn', 'closeBtnTitle', 'theme']);
 
-    var classes = noImportant.StyleSheet.create(deepMerge(defaultStyles$3, theme$$1));
+    //const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
 
     return React__default.createElement(
-      'div',
-      _extends({ className: noImportant.css(classes.header) }, props),
+      HeaderDiv,
+      _extends({ defaults: theme }, props),
       !!showCloseBtn && React__default.createElement(
-        'div',
-        { className: noImportant.css(classes.titlediv) },
+        TitleDiv,
+        null,
         React__default.createElement(
-          'button',
+          CloseButton,
           {
             title: closeBtnTitle,
-            className: noImportant.css(classes.close),
             onClick: onClose
           },
           React__default.createElement(Icon, { fill: !!theme$$1.close && theme$$1.close.fill || theme.close.fill, type: 'close' })
         ),
         React__default.createElement(
-          'span',
-          { className: noImportant.css(classes.title) },
+          Title,
+          { defaults: theme },
           caption
         )
       ),
       customControls ? React__default.createElement(
-        'div',
-        { className: noImportant.css(classes.controls) },
+        ControlsDiv,
+        null,
         customControls
       ) : React__default.createElement('span', null)
     );
@@ -543,43 +416,23 @@
     caption: PropTypes.string
   };
 
-  var defaultStyles$3 = {
-    header: {
-      display: 'flex',
-      height: theme.header.height,
-      position: 'relative',
-      width: '65vw'
-    },
-    controls: {
-      position: 'absolute',
-      right: '0px'
-    },
-    titlediv: {
-      display: 'flex',
-      alignItems: 'center'
-    },
-    title: {
-      verticalAlign: 'middle',
-      color: theme.footer.count.color,
-      display: 'inline-block',
-      fontFamily: theme.header.font
-    },
-    close: {
-      background: 'none',
-      border: 'none',
-      cursor: 'pointer',
-      outline: 'none',
-      position: 'relative',
-      top: 0,
-      verticalAlign: 'bottom',
-      zIndex: 1,
+  var HeaderDiv = styled.div(_templateObject$3, function (props) {
+    return props.defaults.header.height;
+  });
 
-      // increase hit area
-      height: 40,
-      padding: 10,
-      width: 40
-    }
-  };
+  var ControlsDiv = styled.div(_templateObject2$1);
+
+  var TitleDiv = styled.div(_templateObject3);
+
+  var Title = styled.span(_templateObject4, function (props) {
+    return props.defaults.footer.count.color;
+  }, function (props) {
+    return props.defaults.header.font;
+  });
+
+  var CloseButton = styled.button(_templateObject5);
+
+  var _templateObject$4 = taggedTemplateLiteral(['\n  background-position: center;\n  background-size: cover;\n  border-radius: 2px;\n  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .2);\n  cursor: pointer;\n  display: inline-block;\n  height: ', ';\n  margin: ', ';\n  overflow: hidden;\n  width: ', ';\n  box-shadow: ', ';\n'], ['\n  background-position: center;\n  background-size: cover;\n  border-radius: 2px;\n  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .2);\n  cursor: pointer;\n  display: inline-block;\n  height: ', ';\n  margin: ', ';\n  overflow: hidden;\n  width: ', ';\n  box-shadow: ', ';\n']);
 
   function Thumbnail(_ref) {
     var index = _ref.index,
@@ -590,10 +443,12 @@
         theme$$1 = _ref.theme;
 
     var url = thumbnail || src;
-    var classes = noImportant.StyleSheet.create(deepMerge(defaultStyles$4, theme$$1));
+    //const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
 
-    return React__default.createElement('div', {
-      className: noImportant.css(classes.thumbnail, active && classes.thumbnail__active),
+    return React__default.createElement(ThumbnailDiv
+    // className={css(classes.thumbnail, active && classes.thumbnail__active)}
+    , { active: active,
+      defaults: theme,
       onClick: function onClick(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -612,35 +467,35 @@
     thumbnail: PropTypes.string
   };
 
-  var defaultStyles$4 = {
-    thumbnail: {
-      backgroundPosition: 'center',
-      backgroundSize: 'cover',
-      borderRadius: 2,
-      boxShadow: 'inset 0 0 0 1px hsla(0, 0%, 100%, .2)',
-      cursor: 'pointer',
-      display: 'inline-block',
-      height: theme.thumbnail.size,
-      margin: theme.thumbnail.gutter,
-      overflow: 'hidden',
-      width: theme.thumbnail.size
-    },
-    thumbnail__active: {
-      boxShadow: 'inset 0 0 0 2px ' + theme.thumbnail.activeBorderColor
-    }
-  };
+  var ThumbnailDiv = styled.div(_templateObject$4, function (props) {
+    return props.defaults.thumbnail.size + "px";
+  }, function (props) {
+    return props.defaults.thumbnail.gutter + "px";
+  }, function (props) {
+    return props.defaults.thumbnail.size + "px";
+  }, function (props) {
+    return props.active ? 'inset 0 0 0 2px ' + props.defaults.thumbnail.activeBorderColor : "none";
+  });
 
-  var classes = noImportant.StyleSheet.create({
-    paginatedThumbnails: {
-      bottom: theme.container.gutter.vertical,
-      height: theme.thumbnail.size,
-      padding: '0 50px',
-      position: 'absolute',
-      textAlign: 'center',
-      whiteSpace: 'nowrap',
-      left: '50%',
-      transform: 'translateX(-50%)'
-    }
+  var _templateObject$5 = taggedTemplateLiteral(['\n  bottom: ', ';\n  height: ', ';\n  padding: 0 50px;\n  position: absolute;\n  text-align: center;\n  white-space: nowrap;\n  left: 50%;\n  transform: translateX(-50%);\n'], ['\n  bottom: ', ';\n  height: ', ';\n  padding: 0 50px;\n  position: absolute;\n  text-align: center;\n  white-space: nowrap;\n  left: 50%;\n  transform: translateX(-50%);\n']);
+
+  // const classes = StyleSheet.create({
+  //   paginatedThumbnails: {
+  //     bottom: theme.container.gutter.vertical,
+  //     height: theme.thumbnail.size,
+  //     padding: '0 50px',
+  //     position: 'absolute',
+  //     textAlign: 'center',
+  //     whiteSpace: 'nowrap',
+  //     left: '50%',
+  //     transform: 'translateX(-50%)',
+  //   }
+  // })
+
+  var PaginatedThumbnailsDiv = styled.div(_templateObject$5, function (props) {
+    return props.theme.container.gutter.vertical + "px";
+  }, function (props) {
+    return props.theme.thumbnail.size + "px";
   });
 
   var arrowStyles = {
@@ -806,8 +661,8 @@
         }
 
         return React__default.createElement(
-          'div',
-          { className: noImportant.css(classes.paginatedThumbnails) },
+          PaginatedThumbnailsDiv,
+          { theme: theme$$1 },
           this.renderArrowPrev(theme$$1),
           thumbnails.map(function (img, idx) {
             return React__default.createElement(Thumbnail, _extends({
@@ -837,15 +692,18 @@
     onClickThumbnail: PropTypes.func.isRequired
   };
 
+  var _templateObject$6 = taggedTemplateLiteral(['\n  display: flex;\n  justify-content: center;\n'], ['\n  display: flex;\n  justify-content: center;\n']),
+      _templateObject2$2 = taggedTemplateLiteral(['\n  @keyframes bouncingKeyFrames {\n    0% {\n      opacity: 1;\n      transform: translateY(0);\n    }\n    100%{\n      opacity: .1;\n      transform: ', '\n    }\n  }\n\n  width: ', ';\n  height: ', ';\n  margin: ', ';\n  background: ', ';\n  border-radius: 50%;\n  animation-name: bouncingKeyFrames;\n  animation-duration: .6s;\n  animation-direction: alternate;\n  animation-iteration-count: infinite;\n  animation-delay: ', ';\n'], ['\n  @keyframes bouncingKeyFrames {\n    0% {\n      opacity: 1;\n      transform: translateY(0);\n    }\n    100%{\n      opacity: .1;\n      transform: ', '\n    }\n  }\n\n  width: ', ';\n  height: ', ';\n  margin: ', ';\n  background: ', ';\n  border-radius: 50%;\n  animation-name: bouncingKeyFrames;\n  animation-duration: .6s;\n  animation-direction: alternate;\n  animation-iteration-count: infinite;\n  animation-delay: ', ';\n']);
+
   var Spinner = function Spinner(props) {
-    var classes = noImportant.StyleSheet.create(styles(props));
+    //const classes = StyleSheet.create(styles(props))
 
     return React__default.createElement(
-      'div',
-      { className: noImportant.css(classes.bouncingLoader) },
-      React__default.createElement('div', { className: noImportant.css(classes.child) }),
-      React__default.createElement('div', { className: noImportant.css(classes.child, classes.child2) }),
-      React__default.createElement('div', { className: noImportant.css(classes.child, classes.child3) })
+      BouncingLoaderDiv,
+      null,
+      React__default.createElement(ChildDiv, { size: props.size, color: props.color, animationDelay: "0" }),
+      React__default.createElement(ChildDiv, { size: props.size, color: props.color, animationDelay: "0.2" }),
+      React__default.createElement(ChildDiv, { size: props.size, color: props.color, animationDelay: "0.4" })
     );
   };
 
@@ -854,46 +712,81 @@
     size: PropTypes.number
   };
 
-  var bouncingKeyframes = function bouncingKeyframes(size) {
-    return {
-      '0%': {
-        opacity: 1,
-        transform: 'translateY(0)'
-      },
-      '100%': {
-        opacity: .1,
-        transform: 'translateY(-' + size + 'px)'
-      }
-    };
-  };
+  var BouncingLoaderDiv = styled.div(_templateObject$6);
 
-  var styles = function styles(_ref) {
-    var color = _ref.color,
-        size = _ref.size;
-    return {
-      bouncingLoader: {
-        display: 'flex',
-        justifyContent: 'center'
-      },
-      child: {
-        width: size,
-        height: size,
-        margin: 3 * size + 'px ' + .2 * size + 'px',
-        background: color,
-        borderRadius: '50%',
-        animationName: bouncingKeyframes(size),
-        animationDuration: '.6s',
-        animationDirection: 'alternate',
-        animationIterationCount: 'infinite'
-      },
-      child2: {
-        animationDelay: '0.2s'
-      },
-      child3: {
-        animationDelay: '0.4s'
+  var ChildDiv = styled.div(_templateObject2$2, function (props) {
+    return 'translateY(-' + props.size + 'px)';
+  }, function (props) {
+    return props.size + "px";
+  }, function (props) {
+    return props.size + "px";
+  }, function (props) {
+    return 3 * props.size + 'px ' + .2 * props.size + 'px';
+  }, function (props) {
+    return props.color;
+  }, function (props) {
+    return props.animationDelay + "s";
+  });
+
+  function deepMerge(source) {
+    var target = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    var extended = Object.assign({}, target);
+
+    Object.keys(source).forEach(function (key) {
+      if (_typeof(source[key]) !== "object" || !source[key]) {
+        extended[key] = source[key];
+      } else {
+        if (!target[key]) {
+          extended[key] = source[key];
+        } else {
+          extended[key] = deepMerge(target[key], source[key]);
+        }
       }
-    };
-  };
+    });
+    return extended;
+  }
+  // export function deepMerge(source, target = {}) {
+  //   // initialize with source styles
+  //   const styles = { ...source }
+
+  //   // massage in target styles
+  //   Object.keys(target).forEach(key => {
+  //     if (source[key]) {
+  //       styles[key] = (rsCss, props) => {
+  //         return target[key](source[key](rsCss, props), props)
+  //       }
+  //     } else {
+  //       styles[key] = target[key]
+  //     }
+  //   })
+
+  //   return styles
+  // }
+
+  var canUseDom = !!(typeof window !== "undefined" && window.document && window.document.createElement);
+
+  /**
+   * Bind multiple conponent methods:
+   * @param {this} context
+   * @param {Array} functions
+   *
+   * constructor() {
+   *   ...
+   *   bindFunctions.call(this, ['handleClick', 'handleOther'])
+   * }
+   */
+  function bindFunctions(functions) {
+    var _this = this;
+
+    functions.forEach(function (f) {
+      return _this[f] = _this[f].bind(_this);
+    });
+  }
+
+  var _templateObject$7 = taggedTemplateLiteral(["\n  margin: 0px;\n"], ["\n  margin: 0px;\n"]),
+      _templateObject2$3 = taggedTemplateLiteral(["\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n\n  // opacity animation to make spinner appear with delay\n  opacity: ", ";\n  transition: opacity .3s;\n  pointer-events: none;\n"], ["\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n\n  // opacity animation to make spinner appear with delay\n  opacity: ", ";\n  transition: opacity .3s;\n  pointer-events: none;\n"]),
+      _templateObject3$1 = taggedTemplateLiteral(["\n\n  display: block; // removes browser default gutter\n  height: auto;\n  margin: 0 auto; // main center on very short screens or very narrow img\n  max-width: 100%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  // opacity animation on image load\n  opacity: 0;\n  transition: opacity .3s;\n\n  opacity: ", ";\n"], ["\n\n  display: block; // removes browser default gutter\n  height: auto;\n  margin: 0 auto; // main center on very short screens or very narrow img\n  max-width: 100%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  // opacity animation on image load\n  opacity: 0;\n  transition: opacity .3s;\n\n  opacity: ", ";\n"]);
 
   function normalizeSourceSet(data) {
     var sourceSet = data.srcSet || data.srcset;
@@ -919,7 +812,9 @@
       var _this = possibleConstructorReturn(this, (ImgsViewer.__proto__ || Object.getPrototypeOf(ImgsViewer)).call(this, props));
 
       _this.theme = deepMerge(theme, _this.props.theme);
-      _this.classes = aphrodite.StyleSheet.create(deepMerge(defaultStyles$5, _this.props.theme));
+      // this.classes = StyleSheet.create(
+      //   deepMerge(defaultStyles, this.props.theme)
+      // );
       _this.toggleTheme = function (theme$$1) {
         _this.setState(function () {
           return { theme: theme$$1 };
@@ -1158,8 +1053,8 @@
                 React__default.createElement(
                   "div",
                   {
-                    className: aphrodite.css(_this2.classes.content),
                     style: {
+                      position: "relative",
                       marginBottom: offsetThumbnails,
                       maxWidth: width
                     }
@@ -1201,15 +1096,15 @@
         var heightOffset = theme$$1.header.height + theme$$1.footer.height + thumbnailsSize + theme$$1.container.gutter.vertical + "px";
 
         return React__default.createElement(
-          "figure",
-          { className: aphrodite.css(this.classes.figure) },
-          React__default.createElement("img", {
-            className: aphrodite.css(this.classes.img, imgLoaded && this.classes.imgLoaded),
+          Figure,
+          null,
+          React__default.createElement(Img, {
             onClick: onClickImg,
             sizes: sizes,
             alt: img.alt,
             src: img.src,
             srcSet: sourceSet,
+            imgLoaded: imgLoaded,
             style: {
               cursor: onClickImg ? "pointer" : "auto",
               maxHeight: "calc(100vh - " + heightOffset
@@ -1296,9 +1191,13 @@
         var Spinner$$1 = spinner;
         if (spinnerDisabled) return null;
         return React__default.createElement(
-          "div",
-          {
-            className: aphrodite.css(this.classes.spinner, !imgLoaded && this.classes.spinnerActive)
+          SpinnerDiv
+          // className={css(
+          //   this.classes.spinner,
+          //   !imgLoaded && this.classes.spinnerActive
+          // )}
+          ,
+          { spinnerActive: !imgLoaded
           },
           React__default.createElement(Spinner$$1, { color: spinnerColor, size: spinnerSize })
         );
@@ -1368,45 +1267,15 @@
     width: 1024
   };
 
-  var defaultStyles$5 = {
-    content: {
-      position: "relative"
-    },
-    figure: {
-      margin: 0 // remove browser default
-    },
-    img: {
-      display: "block", // removes browser default gutter
-      height: "auto",
-      margin: "0 auto", // main center on very short screens or very narrow img
-      maxWidth: "100%",
+  var Figure = styled.figure(_templateObject$7);
 
-      // disable user select
-      WebkitTouchCallout: "none",
-      userSelect: "none",
+  var SpinnerDiv = styled.div(_templateObject2$3, function (props) {
+    return props.spinnerActive ? 1 : 0;
+  });
 
-      // opacity animation on image load
-      opacity: 0,
-      transition: "opacity .3s"
-    },
-    imgLoaded: {
-      opacity: 1
-    },
-    spinner: {
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-
-      // opacity animation to make spinner appear with delay
-      opacity: 0,
-      transition: "opacity .3s",
-      pointerEvents: "none"
-    },
-    spinnerActive: {
-      opacity: 1
-    }
-  };
+  var Img = styled.img(_templateObject3$1, function (props) {
+    return props.imgLoaded && "1";
+  });
 
   return ImgsViewer;
 
