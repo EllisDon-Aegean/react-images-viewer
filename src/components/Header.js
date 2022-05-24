@@ -10,22 +10,24 @@ function Header ({ caption, customControls, onClose, showCloseBtn, closeBtnTitle
 
   return (
     <HeaderDiv defaults={defaults} {...props}>
-      {!!showCloseBtn && (
-        <TitleDiv>
-          <CloseButton
-            title={closeBtnTitle}
-            onClick={onClose}
-          >
-            <Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />
-          </CloseButton>
-          <Title defaults={defaults}>{caption}</Title>
-        </TitleDiv>
-      )}
-      {customControls ? 
-      <ControlsDiv>
-      {customControls}
-      </ControlsDiv>
-       : <span />}
+      <InnerDiv defaults={defaults}>
+        {!!showCloseBtn && (
+          <TitleDiv>
+            <CloseButton
+              title={closeBtnTitle}
+              onClick={onClose}
+            >
+              <Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />
+            </CloseButton>
+            <Title defaults={defaults}>{caption}</Title>
+          </TitleDiv>
+        )}
+        {customControls ? 
+        <ControlsDiv>
+        {customControls}
+        </ControlsDiv>
+        : <span />}
+      </InnerDiv>
     </HeaderDiv>
   )
 }
@@ -43,7 +45,14 @@ const HeaderDiv = styled.div`
   display: flex;
   height: ${(props) => props.defaults.header.height};
   position: relative;
-  width: 65vw;
+  width: 100%;
+`;
+
+const InnerDiv = styled.div`
+  display: flex;
+  height: ${(props) => props.defaults.header.height};
+  position: relative;
+  width: 100%;
 `;
 
 const ControlsDiv = styled.div`

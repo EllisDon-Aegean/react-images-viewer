@@ -356,7 +356,7 @@ var defaultStyles$1 = {
   }
 };
 
-var _templateObject$3 = taggedTemplateLiteral(['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 65vw;\n'], ['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 65vw;\n']),
+var _templateObject$3 = taggedTemplateLiteral(['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 100%;\n'], ['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 100%;\n']),
     _templateObject2$1 = taggedTemplateLiteral(['\n  position: absolute;\n  right: 0px;\n'], ['\n  position: absolute;\n  right: 0px;\n']),
     _templateObject3 = taggedTemplateLiteral(['\n  display: flex;\n  align-items: center;\n'], ['\n  display: flex;\n  align-items: center;\n']),
     _templateObject4 = taggedTemplateLiteral(['\n  vertical-align: middle;\n  color: ', ';\n  display: inline-block;\n  font-family: ', ';\n'], ['\n  vertical-align: middle;\n  color: ', ';\n  display: inline-block;\n  font-family: ', ';\n']),
@@ -376,28 +376,32 @@ function Header(_ref) {
   return React.createElement(
     HeaderDiv,
     _extends({ defaults: theme }, props),
-    !!showCloseBtn && React.createElement(
-      TitleDiv,
-      null,
-      React.createElement(
-        CloseButton,
-        {
-          title: closeBtnTitle,
-          onClick: onClose
-        },
-        React.createElement(Icon, { fill: !!theme$$1.close && theme$$1.close.fill || theme.close.fill, type: 'close' })
+    React.createElement(
+      InnerDiv,
+      { defaults: theme },
+      !!showCloseBtn && React.createElement(
+        TitleDiv,
+        null,
+        React.createElement(
+          CloseButton,
+          {
+            title: closeBtnTitle,
+            onClick: onClose
+          },
+          React.createElement(Icon, { fill: !!theme$$1.close && theme$$1.close.fill || theme.close.fill, type: 'close' })
+        ),
+        React.createElement(
+          Title,
+          { defaults: theme },
+          caption
+        )
       ),
-      React.createElement(
-        Title,
-        { defaults: theme },
-        caption
-      )
-    ),
-    customControls ? React.createElement(
-      ControlsDiv,
-      null,
-      customControls
-    ) : React.createElement('span', null)
+      customControls ? React.createElement(
+        ControlsDiv,
+        null,
+        customControls
+      ) : React.createElement('span', null)
+    )
   );
 }
 
@@ -411,6 +415,10 @@ Header.propTypes = {
 };
 
 var HeaderDiv = styled.div(_templateObject$3, function (props) {
+  return props.defaults.header.height;
+});
+
+var InnerDiv = styled.div(_templateObject$3, function (props) {
   return props.defaults.header.height;
 });
 
