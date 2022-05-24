@@ -253,6 +253,7 @@ class ImgsViewer extends Component {
                     position: "relative",
                     marginBottom: offsetThumbnails,
                     maxWidth: width,
+                    minWidth: "50vw"
                   }}
                 >
                   {imgLoaded && this.renderHeader(theme)}{" "}

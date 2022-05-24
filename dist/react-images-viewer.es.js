@@ -1058,7 +1058,8 @@ var ImgsViewer = function (_Component) {
                   style: {
                     position: "relative",
                     marginBottom: offsetThumbnails,
-                    maxWidth: width
+                    maxWidth: width,
+                    minWidth: "50vw"
                   }
                 },
                 imgLoaded && _this2.renderHeader(theme$$1),
