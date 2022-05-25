@@ -10,8 +10,10 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import PaginatedThumbnails from "./components/PaginatedThumbnails";
 import DefaultSpinner from "./components/Spinner";
+import Icon from "./components/Icon";
 
 import { bindFunctions, canUseDom, deepMerge } from "./utils/util";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 function normalizeSourceSet(data) {
   const sourceSet = data.srcSet || data.srcset;
@@ -292,18 +294,46 @@ class ImgsViewer extends Component {
 
     return (
       <Figure>
-        <Img
-          onClick={onClickImg}
-          sizes={sizes}
-          alt={img.alt}
-          src={img.src}
-          srcSet={sourceSet}
-          imgLoaded={imgLoaded}
-          style={{
-            cursor: onClickImg ? "pointer" : "auto",
-            maxHeight: `calc(100vh - ${heightOffset}`,
-          }}
-        />
+        <TransformWrapper>
+          {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+            <React.Fragment>
+              {imgLoaded && <Tools>
+                <div style={{
+                  borderRadius: "2px",
+                  padding: "2px",
+                  display: "flex",
+                  background: "rgba(0, 0, 0, 0.6)",
+                  height: "3em",
+                  width: "8em"
+                }}>
+                  <ToolsButton title="Zoom out" style={{bottom: "6px"}} left onClick={() => zoomOut()}>
+                    <Icon type="minus" />
+                  </ToolsButton>
+                  <ToolsButton title="Reset zoom" borderRadius="0px" onClick={() => resetTransform()}>
+                    <Icon type="cross" />
+                  </ToolsButton>
+                  <ToolsButton title="Zoom in" right onClick={() => zoomIn()}>
+                    <Icon type="plus" />  
+                  </ToolsButton>                  
+                </div>
+              </Tools>}
+              <TransformComponent>
+                <Img
+                  onClick={onClickImg}
+                  sizes={sizes}
+                  alt={img.alt}
+                  src={img.src}
+                  srcSet={sourceSet}
+                  imgLoaded={imgLoaded}
+                  style={{
+                    cursor: onClickImg ? "pointer" : "auto",
+                    maxHeight: `calc(100vh - ${heightOffset}`,
+                  }}
+                />
+              </TransformComponent>
+            </React.Fragment>
+          )}
+        </TransformWrapper>
       </Figure>
     );
   }
@@ -445,6 +475,9 @@ ImgsViewer.defaultProps = {
 
 const Figure = styled.figure`
   margin: 0px;
+  position: relative;
+  display: flex;
+  place-content: center;
 `;
 
 const SpinnerDiv = styled.div`
@@ -457,6 +490,28 @@ const SpinnerDiv = styled.div`
   opacity: ${(props) => props.spinnerActive ? 1 : 0};
   transition: opacity .3s;
   pointer-events: none;
+`;
+
+const Tools = styled.div`
+  position: absolute;
+  z-index: 8000;
+  width: 100%;
+  display: flex;
+  place-content: center;
+  bottom: 24px;
+`;
+
+const ToolsButton = styled.button`
+  height: 100%;
+  width: 33.333%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  cursor: pointer;
+  transition: all ease-in-out 0.1s;
+  :hover {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
 `;
 
 const Img = styled.img`
@@ -476,45 +531,5 @@ const Img = styled.img`
 
   opacity: ${(props) => props.imgLoaded && "1"};
 `;
-
-const defaultStyles = {
-  content: {
-    position: "relative",
-  },
-  figure: {
-    margin: 0, // remove browser default
-  },
-  img: {
-    display: "block", // removes browser default gutter
-    height: "auto",
-    margin: "0 auto", // main center on very short screens or very narrow img
-    maxWidth: "100%",
-
-    // disable user select
-    WebkitTouchCallout: "none",
-    userSelect: "none",
-
-    // opacity animation on image load
-    opacity: 0,
-    transition: "opacity .3s",
-  },
-  imgLoaded: {
-    opacity: 1,
-  },
-  spinner: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-
-    // opacity animation to make spinner appear with delay
-    opacity: 0,
-    transition: "opacity .3s",
-    pointerEvents: "none",
-  },
-  spinnerActive: {
-    opacity: 1,
-  },
-};
 
 export default ImgsViewer;
