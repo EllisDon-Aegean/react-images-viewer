@@ -255,7 +255,8 @@ class ImgsViewer extends Component {
                     position: "relative",
                     marginBottom: offsetThumbnails,
                     maxWidth: width,
-                    minWidth: "50vw"
+                    minWidth: "50vw",
+                    minHeight: "50vh"
                   }}
                 >
                   {imgLoaded && this.renderHeader(theme)}{" "}
@@ -303,8 +304,10 @@ class ImgsViewer extends Component {
                   padding: "2px",
                   display: "flex",
                   background: "rgba(0, 0, 0, 0.6)",
-                  height: "3em",
-                  width: "8em"
+                  height: "36px",
+                  width: "108px"
+                  // height: "3em",
+                  // width: "8em"
                 }}>
                   <ToolsButton title="Zoom out" style={{bottom: "6px"}} left onClick={() => zoomOut()}>
                     <Icon type="minus" />
@@ -478,6 +481,8 @@ const Figure = styled.figure`
   position: relative;
   display: flex;
   place-content: center;
+  min-height: 70vh;
+  align-items: center;
 `;
 
 const SpinnerDiv = styled.div`
@@ -498,7 +503,7 @@ const Tools = styled.div`
   width: 100%;
   display: flex;
   place-content: center;
-  bottom: 24px;
+  bottom: 3em;
 `;
 
 const ToolsButton = styled.button`
