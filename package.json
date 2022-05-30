@@ -1,14 +1,15 @@
 {
   "name": "@ellisdon/react-images-viewer",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "Create an react-images-viewer component.",
-  "main": "dist/react-images-viewer.js",
+  "main": "lib/ImgsViewer.js",
   "jsnext:main": "dist/react-images-viewer.es.js",
   "publishConfig": {
     "registry": "https://edartifactory.jfrog.io/artifactory/api/npm/ellisdon-private-npm-registry/"
   },
   "files": [
-    "dist"
+    "dist",
+    "lib"
   ],
   "scripts": {
     "build": "nps build",
