@@ -9,12 +9,11 @@ const globals = {
   'prop-types': 'PropTypes',
   'react-dom': 'ReactDOM',
   react: 'React',
-  aphrodite: 'aphrodite',
-  'aphrodite/no-important': 'aphrodite',
   'react-scrolllock': 'ScrollLock',
   'react-transition-group': 'ReactTransitionGroup',
   'react-spinners': 'BounceLoader',
-  'styled-components': 'styled-components'
+  'styled-components': 'StyledComponents',
+  'react-zoom-pan-pinch': 'ReactZoomPanPinch'
 }
 
 const external = Object.keys(globals)
