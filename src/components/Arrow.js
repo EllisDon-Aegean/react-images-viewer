@@ -19,8 +19,8 @@ const ArrowButton = styled.button`
   -webkit-touch-callout: none;
   user-select: none;
 
-  right: ${(props) => props.right ? props.defaults.container.gutter.horizontal + "px" : "none"};
-  left: ${(props) => props.right ? "none" : props.defaults.container.gutter.horizontal + "px"};
+  right: ${(props) => props.right ? (props.horizontalGutter || props.defaults.container.gutter.horizontal) + "px" : "none"};
+  left: ${(props) => props.right ? "none" : (props.horizontalGutter || props.defaults.container.gutter.horizontal) + "px"};
 
   height: ${(props) => props.height + "px"};
   margin-top: ${(props) => props.height / -2 + "px"};
@@ -31,7 +31,7 @@ const ArrowButton = styled.button`
   };
 `;
 
-function Arrow({ direction, icon, onClick, theme, size, ...props }) {
+function Arrow({ direction, icon, onClick, theme, size, horizontalGutter, ...props }) {
   const height = size == "medium" ? defaults.arrow.height : defaults.thumbnail.size;
 
   return (
@@ -42,6 +42,7 @@ function Arrow({ direction, icon, onClick, theme, size, ...props }) {
       onClick={onClick}
       onTouchEnd={onClick}
       defaults={defaults}
+      horizontalGutter={horizontalGutter}
       {...props}
     >
       <Icon
@@ -56,6 +57,7 @@ Arrow.propTypes = {
   theme: PropTypes.object,
   direction: PropTypes.oneOf(["left", "right"]),
   icon: PropTypes.string,
+  horizontalGutter: PropTypes.number,
   onClick: PropTypes.func.isRequired
 };
 // const defaultStyles = {

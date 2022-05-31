@@ -212,9 +212,9 @@ Icon.defaultProps = {
 var _templateObject$1 = taggedTemplateLiteral(["\n  background: none;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  outline: none;\n  padding: 10px; // increase hit area\n  position: absolute;\n  top: 50%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  right: ", ";\n  left: ", ";\n\n  height: ", ";\n  margin-top: ", ";\n  width: 40px;\n\n  @media (min-width: 768px) {\n    width: 70,\n  };\n"], ["\n  background: none;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  outline: none;\n  padding: 10px; // increase hit area\n  position: absolute;\n  top: 50%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  right: ", ";\n  left: ", ";\n\n  height: ", ";\n  margin-top: ", ";\n  width: 40px;\n\n  @media (min-width: 768px) {\n    width: 70,\n  };\n"]);
 
 var ArrowButton = styled.button(_templateObject$1, function (props) {
-  return props.right ? props.defaults.container.gutter.horizontal + "px" : "none";
+  return props.right ? (props.horizontalGutter || props.defaults.container.gutter.horizontal) + "px" : "none";
 }, function (props) {
-  return props.right ? "none" : props.defaults.container.gutter.horizontal + "px";
+  return props.right ? "none" : (props.horizontalGutter || props.defaults.container.gutter.horizontal) + "px";
 }, function (props) {
   return props.height + "px";
 }, function (props) {
@@ -227,7 +227,8 @@ function Arrow(_ref) {
       onClick = _ref.onClick,
       theme$$1 = _ref.theme,
       size = _ref.size,
-      props = objectWithoutProperties(_ref, ["direction", "icon", "onClick", "theme", "size"]);
+      horizontalGutter = _ref.horizontalGutter,
+      props = objectWithoutProperties(_ref, ["direction", "icon", "onClick", "theme", "size", "horizontalGutter"]);
 
   var height = size == "medium" ? theme.arrow.height : theme.thumbnail.size;
 
@@ -239,7 +240,8 @@ function Arrow(_ref) {
       height: height,
       onClick: onClick,
       onTouchEnd: onClick,
-      defaults: theme
+      defaults: theme,
+      horizontalGutter: horizontalGutter
     }, props),
     React.createElement(Icon, {
       fill: !!theme$$1.arrow && theme$$1.arrow.fill || theme.arrow.fill,
@@ -252,6 +254,7 @@ Arrow.propTypes = {
   theme: PropTypes.object,
   direction: PropTypes.oneOf(["left", "right"]),
   icon: PropTypes.string,
+  horizontalGutter: PropTypes.number,
   onClick: PropTypes.func.isRequired
 };
 
@@ -1069,7 +1072,8 @@ var ImgsViewer = function (_Component) {
         icon: "filledArrowLeft",
         onClick: this.gotoPrev,
         title: this.props.leftArrowTitle,
-        type: "button"
+        type: "button",
+        horizontalGutter: -75
       });
     }
   }, {
@@ -1083,8 +1087,8 @@ var ImgsViewer = function (_Component) {
         icon: "filledArrowRight",
         onClick: this.gotoNext,
         title: this.props.rightArrowTitle,
-        type: "button"
-
+        type: "button",
+        horizontalGutter: -50
       });
     }
   }, {
