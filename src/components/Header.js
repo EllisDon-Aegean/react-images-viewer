@@ -67,9 +67,11 @@ const TitleDiv = styled.div`
 
 const Title = styled.span`
   vertical-align: middle;
-  color: ${(props) => props.defaults.footer.count.color};
+  color: ${(props) => props.defaults.header.color};
   display: inline-block;
   font-family: ${(props) => props.defaults.header.font};
+  font-size: ${(props) => props.defaults.header.fontSize + 'px'};
+  margin-bottom: 5px
 `;
 
 const CloseButton = styled.button`

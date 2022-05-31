@@ -1,12 +1,12 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('prop-types'), require('react'), require('styled-components'), require('react-scrolllock'), require('react-zoom-pan-pinch')) :
-  typeof define === 'function' && define.amd ? define(['prop-types', 'react', 'styled-components', 'react-scrolllock', 'react-zoom-pan-pinch'], factory) :
-  (global.ImgsViewer = factory(global.PropTypes,global.React,global.StyledComponents,global.ScrollLock,global.ReactZoomPanPinch));
-}(this, (function (PropTypes,React,styled,ScrollLock,reactZoomPanPinch) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('styled-components'), require('prop-types'), require('react'), require('react-scrolllock'), require('react-zoom-pan-pinch')) :
+  typeof define === 'function' && define.amd ? define(['styled-components', 'prop-types', 'react', 'react-scrolllock', 'react-zoom-pan-pinch'], factory) :
+  (global.ImgsViewer = factory(global.StyledComponents,global.PropTypes,global.React,global.ScrollLock,global.ReactZoomPanPinch));
+}(this, (function (styled,PropTypes,React,ScrollLock,reactZoomPanPinch) { 'use strict';
 
+  var styled__default = 'default' in styled ? styled['default'] : styled;
   PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
   var React__default = 'default' in React ? React['default'] : React;
-  styled = styled && styled.hasOwnProperty('default') ? styled['default'] : styled;
   ScrollLock = ScrollLock && ScrollLock.hasOwnProperty('default') ? ScrollLock['default'] : ScrollLock;
 
   // ===================
@@ -27,7 +27,9 @@
     // header
   };theme.header = {
     height: 40,
-    font: "Arial"
+    font: '"Aktiv Grotesk", sans-serif',
+    color: 'white',
+    fontSize: 16
   };
   theme.close = {
     fill: 'white'
@@ -59,30 +61,6 @@
     fill: '#fff',
     height: 120
   };
-
-  var arrowLeft = (function (fill) {
-  		return "<svg fill=\"" + fill + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 512 512\" xml:space=\"preserve\">\n\t\t<path d=\"M213.7,256L213.7,256L213.7,256L380.9,81.9c4.2-4.3,4.1-11.4-0.2-15.8l-29.9-30.6c-4.3-4.4-11.3-4.5-15.5-0.2L131.1,247.9 c-2.2,2.2-3.2,5.2-3,8.1c-0.1,3,0.9,5.9,3,8.1l204.2,212.7c4.2,4.3,11.2,4.2,15.5-0.2l29.9-30.6c4.3-4.4,4.4-11.5,0.2-15.8 L213.7,256z\"/>\n\t</svg>";
-  });
-
-  var arrowRight = (function (fill) {
-  		return "<svg fill=\"" + fill + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 512 512\" xml:space=\"preserve\">\n\t\t<path d=\"M298.3,256L298.3,256L298.3,256L131.1,81.9c-4.2-4.3-4.1-11.4,0.2-15.8l29.9-30.6c4.3-4.4,11.3-4.5,15.5-0.2l204.2,212.7 c2.2,2.2,3.2,5.2,3,8.1c0.1,3-0.9,5.9-3,8.1L176.7,476.8c-4.2,4.3-11.2,4.2-15.5-0.2L131.3,446c-4.3-4.4-4.4-11.5-0.2-15.8 L298.3,256z\"/>\n\t</svg>";
-  });
-
-  var close = (function (fill) {
-  	return "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"" + fill + "\" class=\"bi bi-arrow-left\" viewBox=\"0 0 16 16\">\n\t\t<path fill-rule=\"evenodd\" d=\"M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z\"/>\n  \t</svg>";
-  });
-
-  var plus = (function (fill) {
-     return "<svg viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"" + fill + "\">\n    <path d=\"M9 9V1.5C9 0.947715 9.44771 0.5 10 0.5C10.5523 0.5 11 0.947715 11 1.5V9H18.5C19.0523 9 19.5 9.44771 19.5 10C19.5 10.5523 19.0523 11 18.5 11H11V18.5C11 19.0523 10.5523 19.5 10 19.5C9.44771 19.5 9 19.0523 9 18.5V11H1.5C0.947715 11 0.5 10.5523 0.5 10C0.5 9.44771 0.947715 9 1.5 9H9Z\"/>\n    </svg>";
-  });
-
-  var minus = (function (fill) {
-     return "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n    viewBox=\"0 0 472.615 472.615\" style=\"enable-background:new 0 0 472.615 472.615;\" xml:space=\"preserve\" fill=\"" + fill + "\">\n<g>\n   <g>\n       <rect y=\"196.923\" width=\"472.615\" height=\"78.769\"/>\n   </g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n</svg>";
-  });
-
-  var cross = (function (fill) {
-     return "<svg viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"" + fill + "\">\n    <path d=\"M6.50285 7.91694L0.293015 1.70711C-0.097509 1.31658 -0.097509 0.683418 0.293015 0.292893C0.68354 -0.0976311 1.3167 -0.0976311 1.70723 0.292893L7.91707 6.50273L14.1269 0.292893C14.5174 -0.0976311 15.1506 -0.0976311 15.5411 0.292893C15.9316 0.683418 15.9316 1.31658 15.5411 1.70711L9.33128 7.91694L15.5411 14.1268C15.9316 14.5173 15.9316 15.1505 15.5411 15.541C15.1506 15.9315 14.5174 15.9315 14.1269 15.541L7.91707 9.33116L1.70723 15.541C1.3167 15.9315 0.68354 15.9315 0.293015 15.541C-0.097509 15.1505 -0.097509 14.5173 0.293015 14.1268L6.50285 7.91694Z\"/>\n    </svg>";
-  });
 
   var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
     return typeof obj;
@@ -172,7 +150,39 @@
     }));
   };
 
-  var icons = { arrowLeft: arrowLeft, arrowRight: arrowRight, close: close, plus: plus, cross: cross, minus: minus };
+  var _templateObject = taggedTemplateLiteral(['\n  body {\n    @font-face {\n      font-family: "Aktiv Grotesk";\n      src: url("https://radix-cdn.gatethree.io/fonts/Aktiv%20Grotesk%20Woff/AktivGrotesk-Regular.woff") format("woff");\n      font-style: normal;\n      font-weight: 400;\n    }\n    \n    @font-face {\n      font-family: "Acumin Pro Light";\n      src: url("https://radix-cdn.gatethree.io/fonts/Acumin%20Pro%20Woff/AcuminPro-Light.woff") format("woff");\n      font-style: normal;\n      font-weight: 300;\n    }\n    \n    @font-face {\n      font-family: "Acumin Pro";\n      src: url("https://radix-cdn.gatethree.io/fonts/Acumin%20Pro%20Woff/AcuminPro-Regular.woff") format("woff");\n      font-style: normal;\n      font-weight: normal;\n    }\n  }\n'], ['\n  body {\n    @font-face {\n      font-family: "Aktiv Grotesk";\n      src: url("https://radix-cdn.gatethree.io/fonts/Aktiv%20Grotesk%20Woff/AktivGrotesk-Regular.woff") format("woff");\n      font-style: normal;\n      font-weight: 400;\n    }\n    \n    @font-face {\n      font-family: "Acumin Pro Light";\n      src: url("https://radix-cdn.gatethree.io/fonts/Acumin%20Pro%20Woff/AcuminPro-Light.woff") format("woff");\n      font-style: normal;\n      font-weight: 300;\n    }\n    \n    @font-face {\n      font-family: "Acumin Pro";\n      src: url("https://radix-cdn.gatethree.io/fonts/Acumin%20Pro%20Woff/AcuminPro-Regular.woff") format("woff");\n      font-style: normal;\n      font-weight: normal;\n    }\n  }\n']);
+
+  var GlobalStyle = styled.createGlobalStyle(_templateObject);
+
+  var arrowLeft = (function (fill) {
+  		return "<svg fill=\"" + fill + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 512 512\" xml:space=\"preserve\">\n\t\t<path d=\"M213.7,256L213.7,256L213.7,256L380.9,81.9c4.2-4.3,4.1-11.4-0.2-15.8l-29.9-30.6c-4.3-4.4-11.3-4.5-15.5-0.2L131.1,247.9 c-2.2,2.2-3.2,5.2-3,8.1c-0.1,3,0.9,5.9,3,8.1l204.2,212.7c4.2,4.3,11.2,4.2,15.5-0.2l29.9-30.6c4.3-4.4,4.4-11.5,0.2-15.8 L213.7,256z\"/>\n\t</svg>";
+  });
+
+  var arrowRight = (function (fill) {
+  		return "<svg fill=\"" + fill + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 512 512\" xml:space=\"preserve\">\n\t\t<path d=\"M298.3,256L298.3,256L298.3,256L131.1,81.9c-4.2-4.3-4.1-11.4,0.2-15.8l29.9-30.6c4.3-4.4,11.3-4.5,15.5-0.2l204.2,212.7 c2.2,2.2,3.2,5.2,3,8.1c0.1,3-0.9,5.9-3,8.1L176.7,476.8c-4.2,4.3-11.2,4.2-15.5-0.2L131.3,446c-4.3-4.4-4.4-11.5-0.2-15.8 L298.3,256z\"/>\n\t</svg>";
+  });
+
+  var close = (function (fill) {
+  	return "<svg width=\"16\" height=\"16\" fill=" + fill + " viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\">\n\t\t<path d=\"M15 7H3.82998L8.70998 2.12C9.09998 1.73 9.09998 1.09 8.70998 0.700001C8.31998 0.310001 7.68998 0.310001 7.29998 0.700001L0.70998 7.29C0.31998 7.68 0.31998 8.31 0.70998 8.7L7.29998 15.29C7.68998 15.68 8.31998 15.68 8.70998 15.29C9.09998 14.9 9.09998 14.27 8.70998 13.88L3.82998 9H15C15.55 9 16 8.55 16 8C16 7.45 15.55 7 15 7Z\"/>\n\t</svg>\n\t";
+  });
+
+  var plus = (function (fill) {
+     return "<svg viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"" + fill + "\">\n    <path d=\"M9 9V1.5C9 0.947715 9.44771 0.5 10 0.5C10.5523 0.5 11 0.947715 11 1.5V9H18.5C19.0523 9 19.5 9.44771 19.5 10C19.5 10.5523 19.0523 11 18.5 11H11V18.5C11 19.0523 10.5523 19.5 10 19.5C9.44771 19.5 9 19.0523 9 18.5V11H1.5C0.947715 11 0.5 10.5523 0.5 10C0.5 9.44771 0.947715 9 1.5 9H9Z\"/>\n    </svg>";
+  });
+
+  var minus = (function (fill) {
+     return "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n    viewBox=\"0 0 472.615 472.615\" style=\"enable-background:new 0 0 472.615 472.615;\" xml:space=\"preserve\" fill=\"" + fill + "\">\n<g>\n   <g>\n       <rect y=\"196.923\" width=\"472.615\" height=\"78.769\"/>\n   </g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n<g>\n</g>\n</svg>";
+  });
+
+  var cross = (function (fill) {
+     return "<svg viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"" + fill + "\">\n    <path d=\"M6.50285 7.91694L0.293015 1.70711C-0.097509 1.31658 -0.097509 0.683418 0.293015 0.292893C0.68354 -0.0976311 1.3167 -0.0976311 1.70723 0.292893L7.91707 6.50273L14.1269 0.292893C14.5174 -0.0976311 15.1506 -0.0976311 15.5411 0.292893C15.9316 0.683418 15.9316 1.31658 15.5411 1.70711L9.33128 7.91694L15.5411 14.1268C15.9316 14.5173 15.9316 15.1505 15.5411 15.541C15.1506 15.9315 14.5174 15.9315 14.1269 15.541L7.91707 9.33116L1.70723 15.541C1.3167 15.9315 0.68354 15.9315 0.293015 15.541C-0.097509 15.1505 -0.097509 14.5173 0.293015 14.1268L6.50285 7.91694Z\"/>\n    </svg>";
+  });
+
+  var resetZoom = (function (fill) {
+    return "<svg fill=\"" + fill + "\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\">\n  <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M11.7106 11.0006H12.5006L16.7406 15.2606C17.1506 15.6706 17.1506 16.3406 16.7406 16.7506C16.3306 17.1606 15.6606 17.1606 15.2506 16.7506L11.0006 12.5006V11.7106L10.7306 11.4306C9.33063 12.6306 7.42063 13.2506 5.39063 12.9106C2.61063 12.4406 0.390626 10.1206 0.0506256 7.32063C-0.469374 3.09063 3.09063 -0.469374 7.32063 0.0506256C10.1206 0.390626 12.4406 2.61063 12.9106 5.39063C13.2506 7.42063 12.6306 9.33063 11.4306 10.7306L11.7106 11.0006ZM2.00063 6.50063C2.00063 8.99063 4.01063 11.0006 6.50063 11.0006C8.99063 11.0006 11.0006 8.99063 11.0006 6.50063C11.0006 4.01063 8.99063 2.00063 6.50063 2.00063C4.01063 2.00063 2.00063 4.01063 2.00063 6.50063Z\"/>\n</svg>";
+  });
+
+  var icons = { arrowLeft: arrowLeft, arrowRight: arrowRight, close: close, plus: plus, cross: cross, minus: minus, resetZoom: resetZoom };
 
   var Icon = function Icon(_ref) {
     var fill = _ref.fill,
@@ -192,9 +202,9 @@
     fill: "#fff"
   };
 
-  var _templateObject = taggedTemplateLiteral(["\n  background: none;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  outline: none;\n  padding: 10px; // increase hit area\n  position: absolute;\n  top: 50%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  right: ", ";\n  left: ", ";\n\n  height: ", ";\n  margin-top: ", ";\n  width: 40px;\n\n  @media (min-width: 768px) {\n    width: 70,\n  };\n"], ["\n  background: none;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  outline: none;\n  padding: 10px; // increase hit area\n  position: absolute;\n  top: 50%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  right: ", ";\n  left: ", ";\n\n  height: ", ";\n  margin-top: ", ";\n  width: 40px;\n\n  @media (min-width: 768px) {\n    width: 70,\n  };\n"]);
+  var _templateObject$1 = taggedTemplateLiteral(["\n  background: none;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  outline: none;\n  padding: 10px; // increase hit area\n  position: absolute;\n  top: 50%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  right: ", ";\n  left: ", ";\n\n  height: ", ";\n  margin-top: ", ";\n  width: 40px;\n\n  @media (min-width: 768px) {\n    width: 70,\n  };\n"], ["\n  background: none;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  outline: none;\n  padding: 10px; // increase hit area\n  position: absolute;\n  top: 50%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  right: ", ";\n  left: ", ";\n\n  height: ", ";\n  margin-top: ", ";\n  width: 40px;\n\n  @media (min-width: 768px) {\n    width: 70,\n  };\n"]);
 
-  var ArrowButton = styled.button(_templateObject, function (props) {
+  var ArrowButton = styled__default.button(_templateObject$1, function (props) {
     return props.right ? props.defaults.container.gutter.horizontal + "px" : "none";
   }, function (props) {
     return props.right ? "none" : props.defaults.container.gutter.horizontal + "px";
@@ -238,9 +248,9 @@
     onClick: PropTypes.func.isRequired
   };
 
-  var _templateObject$1 = taggedTemplateLiteral(['\n    align-items: center;\n    background: ', ';\n    box-sizing: border-box;\n    display: flex;\n    height: 100%;\n    justify-content: center;\n    left: 0;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n    position: fixed;\n    top: 0;\n    width: 100%;\n    z-index: ', ';\n  '], ['\n    align-items: center;\n    background: ', ';\n    box-sizing: border-box;\n    display: flex;\n    height: 100%;\n    justify-content: center;\n    left: 0;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n    position: fixed;\n    top: 0;\n    width: 100%;\n    z-index: ', ';\n  ']);
+  var _templateObject$2 = taggedTemplateLiteral(['\n    align-items: center;\n    background: ', ';\n    box-sizing: border-box;\n    display: flex;\n    height: 100%;\n    justify-content: center;\n    left: 0;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n    position: fixed;\n    top: 0;\n    width: 100%;\n    z-index: ', ';\n  '], ['\n    align-items: center;\n    background: ', ';\n    box-sizing: border-box;\n    display: flex;\n    height: 100%;\n    justify-content: center;\n    left: 0;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n    position: fixed;\n    top: 0;\n    width: 100%;\n    z-index: ', ';\n  ']);
 
-  var ContainerDiv = styled.div(_templateObject$1, function (props) {
+  var ContainerDiv = styled__default.div(_templateObject$2, function (props) {
     return props.defaults.container.background;
   }, function (props) {
     return props.defaults.container.gutter.vertical;
@@ -291,40 +301,36 @@
     }
   };
 
-  var _templateObject$2 = taggedTemplateLiteral(['\n    box-sizing: border-box;\n    color: ', ';\n    cursor: auto;\n    display: flex;\n    justify-content: space-between;\n    left: 0;\n    line-height: 1.3;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n  '], ['\n    box-sizing: border-box;\n    color: ', ';\n    cursor: auto;\n    display: flex;\n    justify-content: space-between;\n    left: 0;\n    line-height: 1.3;\n    padding-top: ', 'px;\n    padding-right: ', 'px;\n    padding-bottom: ', 'px;\n    padding-left: ', 'px;\n  ']),
-      _templateObject2 = taggedTemplateLiteral(['\n    color: ', ';\n    font-size: ', ';\n    padding-left: 1em; // add a small gutter for the caption\n    font-family: ', ';\n  '], ['\n    color: ', ';\n    font-size: ', ';\n    padding-left: 1em; // add a small gutter for the caption\n    font-family: ', ';\n  ']);
+  var _templateObject$3 = taggedTemplateLiteral(['\n  box-sizing: border-box;\n  color: ', ';\n  cursor: auto;\n  display: flex;\n  justify-content: space-between;\n  left: 0;\n  line-height: 1.3;\n  padding-top: ', 'px;\n  padding-right: ', 'px;\n  padding-bottom: ', 'px;\n  padding-left: ', 'px;\n'], ['\n  box-sizing: border-box;\n  color: ', ';\n  cursor: auto;\n  display: flex;\n  justify-content: space-between;\n  left: 0;\n  line-height: 1.3;\n  padding-top: ', 'px;\n  padding-right: ', 'px;\n  padding-bottom: ', 'px;\n  padding-left: ', 'px;\n']),
+      _templateObject2 = taggedTemplateLiteral(['\n  color: ', ';\n  font-size: ', ';\n  padding-left: 1em; // add a small gutter for the caption\n  font-family: ', ';\n'], ['\n  color: ', ';\n  font-size: ', ';\n  padding-left: 1em; // add a small gutter for the caption\n  font-family: ', ';\n']);
+
+  var FooterDiv = styled__default.div(_templateObject$3, function (props) {
+    return props.defaults.footer.color;
+  }, function (props) {
+    return props.defaults.footer.gutter.vertical;
+  }, function (props) {
+    return props.defaults.footer.gutter.horizontal;
+  }, function (props) {
+    return props.defaults.footer.gutter.vertical;
+  }, function (props) {
+    return props.defaults.footer.gutter.horizontal;
+  });
+
+  var FooterCountDiv = styled__default.div(_templateObject2, function (props) {
+    return props.defaults.footer.count.color;
+  }, function (props) {
+    return props.defaults.footer.count.fontSize;
+  }, function (props) {
+    return props.defaults.footer.count.font;
+  });
 
   function Footer(_ref) {
     var countCurr = _ref.countCurr,
         countSeparator = _ref.countSeparator,
         countTotal = _ref.countTotal,
-        showCount = _ref.showCount,
-        theme$$1 = _ref.theme,
-        props = objectWithoutProperties(_ref, ['countCurr', 'countSeparator', 'countTotal', 'showCount', 'theme']);
+        showCount = _ref.showCount;
 
     if (!showCount) return null;
-
-    //const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
-
-    var FooterDiv = styled.div(_templateObject$2, function (props) {
-      return props.defaults.footer.color;
-    }, function (props) {
-      return props.defaults.footer.gutter.vertical;
-    }, function (props) {
-      return props.defaults.footer.gutter.horizontal;
-    }, function (props) {
-      return props.defaults.footer.gutter.vertical;
-    }, function (props) {
-      return props.defaults.footer.gutter.horizontal;
-    });
-
-    var FooterCountDiv = styled.div(_templateObject2, function (props) {
-      return props.defaults.footer.count.color;
-    }, function (props) {
-      return props.defaults.footer.count.fontSize;
-    }, function (props) {
-      return props.defaults.footer.count.font;
-    });
 
     var imgCount = showCount ? React__default.createElement(
       FooterCountDiv,
@@ -374,10 +380,10 @@
     }
   };
 
-  var _templateObject$3 = taggedTemplateLiteral(['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 100%;\n'], ['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 100%;\n']),
+  var _templateObject$4 = taggedTemplateLiteral(['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 100%;\n'], ['\n  display: flex;\n  height: ', ';\n  position: relative;\n  width: 100%;\n']),
       _templateObject2$1 = taggedTemplateLiteral(['\n  position: absolute;\n  right: 0px;\n'], ['\n  position: absolute;\n  right: 0px;\n']),
       _templateObject3 = taggedTemplateLiteral(['\n  display: flex;\n  align-items: center;\n'], ['\n  display: flex;\n  align-items: center;\n']),
-      _templateObject4 = taggedTemplateLiteral(['\n  vertical-align: middle;\n  color: ', ';\n  display: inline-block;\n  font-family: ', ';\n'], ['\n  vertical-align: middle;\n  color: ', ';\n  display: inline-block;\n  font-family: ', ';\n']),
+      _templateObject4 = taggedTemplateLiteral(['\n  vertical-align: middle;\n  color: ', ';\n  display: inline-block;\n  font-family: ', ';\n  font-size: ', ';\n  margin-bottom: 5px\n'], ['\n  vertical-align: middle;\n  color: ', ';\n  display: inline-block;\n  font-family: ', ';\n  font-size: ', ';\n  margin-bottom: 5px\n']),
       _templateObject5 = taggedTemplateLiteral(['\n  background: none;\n  border: none;\n  cursor: pointer;\n  outline: none;\n  position: relative;\n  top: 0px;\n  vertical-align: bottom;\n  z-index: 1;\n\n  height: 40px;\n  padding: 10px;\n  width: 40px;\n'], ['\n  background: none;\n  border: none;\n  cursor: pointer;\n  outline: none;\n  position: relative;\n  top: 0px;\n  vertical-align: bottom;\n  z-index: 1;\n\n  height: 40px;\n  padding: 10px;\n  width: 40px;\n']);
 
   function Header(_ref) {
@@ -432,27 +438,34 @@
     caption: PropTypes.string
   };
 
-  var HeaderDiv = styled.div(_templateObject$3, function (props) {
+  var HeaderDiv = styled__default.div(_templateObject$4, function (props) {
     return props.defaults.header.height;
   });
 
-  var InnerDiv = styled.div(_templateObject$3, function (props) {
+  var InnerDiv = styled__default.div(_templateObject$4, function (props) {
     return props.defaults.header.height;
   });
 
-  var ControlsDiv = styled.div(_templateObject2$1);
+  var ControlsDiv = styled__default.div(_templateObject2$1);
 
-  var TitleDiv = styled.div(_templateObject3);
+  var TitleDiv = styled__default.div(_templateObject3);
 
-  var Title = styled.span(_templateObject4, function (props) {
-    return props.defaults.footer.count.color;
+  var Title = styled__default.span(_templateObject4, function (props) {
+    return props.defaults.header.color;
   }, function (props) {
     return props.defaults.header.font;
+  }, function (props) {
+    return props.defaults.header.fontSize + 'px';
   });
 
-  var CloseButton = styled.button(_templateObject5);
+  var CloseButton = styled__default.button(_templateObject5);
 
-  var _templateObject$4 = taggedTemplateLiteral(['\n  background-position: center;\n  background-size: cover;\n  border-radius: 2px;\n  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .2);\n  cursor: pointer;\n  display: inline-block;\n  height: ', ';\n  margin: ', ';\n  overflow: hidden;\n  width: ', ';\n  box-shadow: ', ';\n'], ['\n  background-position: center;\n  background-size: cover;\n  border-radius: 2px;\n  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .2);\n  cursor: pointer;\n  display: inline-block;\n  height: ', ';\n  margin: ', ';\n  overflow: hidden;\n  width: ', ';\n  box-shadow: ', ';\n']);
+  var FALLBACK_IMAGES = {
+    REGULAR: 'https://radix-cdn.gatethree.io/images/not-supported-image.svg',
+    LARGE: 'https://radix-cdn.gatethree.io/images/not-supported-image-large.svg'
+  };
+
+  var _templateObject$5 = taggedTemplateLiteral(['\n  background-position: center;\n  background-size: cover;\n  border-radius: 2px;\n  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .2);\n  cursor: pointer;\n  display: inline-block;\n  height: ', ';\n  margin: ', ';\n  overflow: hidden;\n  width: ', ';\n  box-shadow: ', ';\n'], ['\n  background-position: center;\n  background-size: cover;\n  border-radius: 2px;\n  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .2);\n  cursor: pointer;\n  display: inline-block;\n  height: ', ';\n  margin: ', ';\n  overflow: hidden;\n  width: ', ';\n  box-shadow: ', ';\n']);
 
   function Thumbnail(_ref) {
     var index = _ref.index,
@@ -463,7 +476,19 @@
         theme$$1 = _ref.theme;
 
     var url = thumbnail || src;
-    //const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
+
+    React.useEffect(function () {
+      var img = new Image();
+      img.onerror = handleImgError;
+      img.src = url;
+    }, []);
+
+    var thumbnailDivRef = React.useRef(null);
+
+    var handleImgError = React.useCallback(function () {
+      if (!thumbnailDivRef.current) return;
+      thumbnailDivRef.current.style.backgroundImage = 'url("' + FALLBACK_IMAGES.REGULAR + '")';
+    }, []);
 
     return React__default.createElement(ThumbnailDiv
     // className={css(classes.thumbnail, active && classes.thumbnail__active)}
@@ -474,6 +499,7 @@
         e.stopPropagation();
         _onClick(index);
       },
+      ref: thumbnailDivRef,
       style: { backgroundImage: 'url("' + url + '")' }
     });
   }
@@ -487,7 +513,7 @@
     thumbnail: PropTypes.string
   };
 
-  var ThumbnailDiv = styled.div(_templateObject$4, function (props) {
+  var ThumbnailDiv = styled__default.div(_templateObject$5, function (props) {
     return props.defaults.thumbnail.size + "px";
   }, function (props) {
     return props.defaults.thumbnail.gutter + "px";
@@ -497,7 +523,7 @@
     return props.active ? 'inset 0 0 0 2px ' + props.defaults.thumbnail.activeBorderColor : "none";
   });
 
-  var _templateObject$5 = taggedTemplateLiteral(['\n  bottom: ', ';\n  height: ', ';\n  padding: 0 50px;\n  position: absolute;\n  text-align: center;\n  white-space: nowrap;\n  left: 50%;\n  transform: translateX(-50%);\n'], ['\n  bottom: ', ';\n  height: ', ';\n  padding: 0 50px;\n  position: absolute;\n  text-align: center;\n  white-space: nowrap;\n  left: 50%;\n  transform: translateX(-50%);\n']);
+  var _templateObject$6 = taggedTemplateLiteral(['\n  bottom: ', ';\n  height: ', ';\n  padding: 0 50px;\n  position: absolute;\n  text-align: center;\n  white-space: nowrap;\n  left: 50%;\n  transform: translateX(-50%);\n'], ['\n  bottom: ', ';\n  height: ', ';\n  padding: 0 50px;\n  position: absolute;\n  text-align: center;\n  white-space: nowrap;\n  left: 50%;\n  transform: translateX(-50%);\n']);
 
   // const classes = StyleSheet.create({
   //   paginatedThumbnails: {
@@ -512,7 +538,7 @@
   //   }
   // })
 
-  var PaginatedThumbnailsDiv = styled.div(_templateObject$5, function (props) {
+  var PaginatedThumbnailsDiv = styled__default.div(_templateObject$6, function (props) {
     return props.theme.container.gutter.vertical + "px";
   }, function (props) {
     return props.theme.thumbnail.size + "px";
@@ -712,7 +738,7 @@
     onClickThumbnail: PropTypes.func.isRequired
   };
 
-  var _templateObject$6 = taggedTemplateLiteral(['\n  display: flex;\n  justify-content: center;\n'], ['\n  display: flex;\n  justify-content: center;\n']),
+  var _templateObject$7 = taggedTemplateLiteral(['\n  display: flex;\n  justify-content: center;\n'], ['\n  display: flex;\n  justify-content: center;\n']),
       _templateObject2$2 = taggedTemplateLiteral(['\n  @keyframes bouncingKeyFrames {\n    0% {\n      opacity: 1;\n      transform: translateY(0);\n    }\n    100%{\n      opacity: .1;\n      transform: ', '\n    }\n  }\n\n  width: ', ';\n  height: ', ';\n  margin: ', ';\n  background: ', ';\n  border-radius: 50%;\n  animation-name: bouncingKeyFrames;\n  animation-duration: .6s;\n  animation-direction: alternate;\n  animation-iteration-count: infinite;\n  animation-delay: ', ';\n'], ['\n  @keyframes bouncingKeyFrames {\n    0% {\n      opacity: 1;\n      transform: translateY(0);\n    }\n    100%{\n      opacity: .1;\n      transform: ', '\n    }\n  }\n\n  width: ', ';\n  height: ', ';\n  margin: ', ';\n  background: ', ';\n  border-radius: 50%;\n  animation-name: bouncingKeyFrames;\n  animation-duration: .6s;\n  animation-direction: alternate;\n  animation-iteration-count: infinite;\n  animation-delay: ', ';\n']);
 
   var Spinner = function Spinner(props) {
@@ -732,9 +758,9 @@
     size: PropTypes.number
   };
 
-  var BouncingLoaderDiv = styled.div(_templateObject$6);
+  var BouncingLoaderDiv = styled__default.div(_templateObject$7);
 
-  var ChildDiv = styled.div(_templateObject2$2, function (props) {
+  var ChildDiv = styled__default.div(_templateObject2$2, function (props) {
     return 'translateY(-' + props.size + 'px)';
   }, function (props) {
     return props.size + "px";
@@ -804,11 +830,11 @@
     });
   }
 
-  var _templateObject$7 = taggedTemplateLiteral(["\n  margin: 0px;\n  position: relative;\n  display: flex;\n  place-content: center;\n  min-height: 70vh;\n  align-items: center;\n"], ["\n  margin: 0px;\n  position: relative;\n  display: flex;\n  place-content: center;\n  min-height: 70vh;\n  align-items: center;\n"]),
+  var _templateObject$8 = taggedTemplateLiteral(["\n  margin: 0px;\n  position: relative;\n  display: flex;\n  place-content: center;\n  min-height: 70vh;\n  align-items: center;\n  max-width: 768px;\n"], ["\n  margin: 0px;\n  position: relative;\n  display: flex;\n  place-content: center;\n  min-height: 70vh;\n  align-items: center;\n  max-width: 768px;\n"]),
       _templateObject2$3 = taggedTemplateLiteral(["\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n\n  // opacity animation to make spinner appear with delay\n  opacity: ", ";\n  transition: opacity .3s;\n  pointer-events: none;\n"], ["\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n\n  // opacity animation to make spinner appear with delay\n  opacity: ", ";\n  transition: opacity .3s;\n  pointer-events: none;\n"]),
       _templateObject3$1 = taggedTemplateLiteral(["\n  position: absolute;\n  z-index: 8000;\n  width: 100%;\n  display: flex;\n  place-content: center;\n  bottom: 3em;\n"], ["\n  position: absolute;\n  z-index: 8000;\n  width: 100%;\n  display: flex;\n  place-content: center;\n  bottom: 3em;\n"]),
-      _templateObject4$1 = taggedTemplateLiteral(["\n  height: 100%;\n  width: 33.333%;\n  border: none;\n  background-color: rgba(0, 0, 0, 0);\n  color: white;\n  cursor: pointer;\n  transition: all ease-in-out 0.1s;\n  :hover {\n    background-color: rgba(255, 255, 255, 0.6);\n  }\n"], ["\n  height: 100%;\n  width: 33.333%;\n  border: none;\n  background-color: rgba(0, 0, 0, 0);\n  color: white;\n  cursor: pointer;\n  transition: all ease-in-out 0.1s;\n  :hover {\n    background-color: rgba(255, 255, 255, 0.6);\n  }\n"]),
-      _templateObject5$1 = taggedTemplateLiteral(["\n\n  display: block; // removes browser default gutter\n  height: auto;\n  margin: 0 auto; // main center on very short screens or very narrow img\n  max-width: 100%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  // opacity animation on image load\n  opacity: 0;\n  transition: opacity .3s;\n\n  opacity: ", ";\n"], ["\n\n  display: block; // removes browser default gutter\n  height: auto;\n  margin: 0 auto; // main center on very short screens or very narrow img\n  max-width: 100%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  // opacity animation on image load\n  opacity: 0;\n  transition: opacity .3s;\n\n  opacity: ", ";\n"]);
+      _templateObject4$1 = taggedTemplateLiteral(["\n  height: 100%;\n  width: 33.333%;\n  border: none;\n  background-color: rgba(0, 0, 0, 0);\n  color: white;\n  cursor: pointer;\n  transition: all ease-in-out 0.1s;\n  :hover {\n    background-color: rgba(255, 255, 255, 0.6);\n  }\n  :disabled {\n    opacity: 0.5;\n    pointer-events: none;\n  }\n"], ["\n  height: 100%;\n  width: 33.333%;\n  border: none;\n  background-color: rgba(0, 0, 0, 0);\n  color: white;\n  cursor: pointer;\n  transition: all ease-in-out 0.1s;\n  :hover {\n    background-color: rgba(255, 255, 255, 0.6);\n  }\n  :disabled {\n    opacity: 0.5;\n    pointer-events: none;\n  }\n"]),
+      _templateObject5$1 = taggedTemplateLiteral(["\n  display: block; // removes browser default gutter\n  height: auto;\n  margin: 0 auto; // main center on very short screens or very narrow img\n  max-width: 100%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  // opacity animation on image load\n  opacity: 0;\n  transition: opacity .3s;\n\n  opacity: ", ";\n"], ["\n  display: block; // removes browser default gutter\n  height: auto;\n  margin: 0 auto; // main center on very short screens or very narrow img\n  max-width: 100%;\n\n  // disable user select\n  -webkit-touch-callout: none;\n  user-select: none;\n\n  // opacity animation on image load\n  opacity: 0;\n  transition: opacity .3s;\n\n  opacity: ", ";\n"]);
 
   function normalizeSourceSet(data) {
     var sourceSet = data.srcSet || data.srcset;
@@ -844,11 +870,14 @@
       };
       _this.state = {
         imgLoaded: false,
+        imgHasError: false,
         theme: _this.theme,
         toggleTheme: _this.toggleTheme
       };
 
-      bindFunctions.call(_this, ["gotoNext", "gotoPrev", "closeBackdrop", "handleKeyboardInput", "handleImgLoaded"]);
+      _this.transformWrapperRef = React.createRef();
+
+      bindFunctions.call(_this, ["gotoNext", "gotoPrev", "closeBackdrop", "handleKeyboardInput", "handleImgLoaded", "handleImgError"]);
       return _this;
     }
 
@@ -860,7 +889,7 @@
             window.addEventListener("keydown", this.handleKeyboardInput);
           }
           if (typeof this.props.currImg === "number") {
-            this.preloadImg(this.props.currImg, this.handleImgLoaded);
+            this.preloadImg(this.props.currImg, this.handleImgLoaded, this.handleImgError);
           }
         }
       }
@@ -878,17 +907,13 @@
         if (nextProps.preloadNextImg) {
           var nextIdx = nextProps.currImg + 1;
           var prevIdx = nextProps.currImg - 1;
-          // debugger
           // if (!this) return null
           this.preloadImg(prevIdx);
           this.preloadImg(nextIdx);
         }
         // preload currImg
         if (this.props.currImg !== nextProps.currImg || !this.props.isOpen && nextProps.isOpen) {
-          var img = this.preloadImgData(nextProps.imgs[nextProps.currImg], this.handleImgLoaded);
-          if (img) this.setState({
-            imgLoaded: img.complete
-          });
+          this.preloadImgData(nextProps.imgs[nextProps.currImg], this.handleImgLoaded, this.handleImgError);
         }
 
         // add/remove event listeners
@@ -915,19 +940,19 @@
 
     }, {
       key: "preloadImg",
-      value: function preloadImg(idx, onload) {
-        return this.preloadImgData(this.props.imgs[idx], onload);
+      value: function preloadImg(idx, onload, onerror) {
+        return this.preloadImgData(this.props.imgs[idx], onload, onerror);
       }
     }, {
       key: "preloadImgData",
-      value: function preloadImgData(data, onload) {
+      value: function preloadImgData(data, onload, onerror) {
         if (!data) return;
 
         var img = new Image();
         var sourceSet = normalizeSourceSet(data);
 
         // Todo: add error handling for missing imgs
-        img.onerror = onload;
+        img.onerror = onerror;
         img.onload = onload;
         img.src = data.src;
 
@@ -951,6 +976,10 @@
           event.stopPropagation();
         }
 
+        if (this.transformWrapperRef.current) {
+          this.transformWrapperRef.current.resetTransform();
+        }
+
         this.props.onClickNext();
       }
     }, {
@@ -965,6 +994,10 @@
         if (event) {
           event.preventDefault();
           event.stopPropagation();
+        }
+
+        if (this.transformWrapperRef.current) {
+          this.transformWrapperRef.current.resetTransform();
         }
 
         this.props.onClickPrev();
@@ -998,10 +1031,20 @@
       }
     }, {
       key: "handleImgLoaded",
-      value: function handleImgLoaded() {
-        this.setState({
-          imgLoaded: true
-        });
+      value: function handleImgLoaded(e) {
+        var imgHasError = this.state.imgHasError;
+
+        if (e.target.src === FALLBACK_IMAGES.LARGE && imgHasError) {
+          this.setState({ imgLoaded: true });
+        } else {
+          this.setState({ imgLoaded: true, imgHasError: false });
+        }
+      }
+    }, {
+      key: "handleImgError",
+      value: function handleImgError(e) {
+        if (e && e.target) e.target.src = FALLBACK_IMAGES.LARGE;
+        this.setState({ imgHasError: true });
       }
 
       // ====================
@@ -1034,6 +1077,7 @@
           onClick: this.gotoNext,
           title: this.props.rightArrowTitle,
           type: "button"
+
         });
       }
     }, {
@@ -1088,11 +1132,11 @@
                   _this2.renderImgs(theme$$1),
                   _this2.renderSpinner(),
                   " ",
-                  imgLoaded && _this2.renderFooter(theme$$1)
+                  imgLoaded && _this2.renderFooter(theme$$1),
+                  imgLoaded && _this2.renderArrowPrev(theme$$1),
+                  imgLoaded && _this2.renderArrowNext(theme$$1)
                 ),
                 imgLoaded && _this2.renderThumbnails(theme$$1),
-                imgLoaded && _this2.renderArrowPrev(theme$$1),
-                imgLoaded && _this2.renderArrowNext(theme$$1),
                 _this2.props.preventScroll && React__default.createElement(ScrollLock, null)
               )
             );
@@ -1102,12 +1146,16 @@
     }, {
       key: "renderImgs",
       value: function renderImgs(theme$$1) {
+        var _this3 = this;
+
         var _props3 = this.props,
             currImg = _props3.currImg,
             imgs = _props3.imgs,
             onClickImg = _props3.onClickImg,
             showThumbnails = _props3.showThumbnails;
-        var imgLoaded = this.state.imgLoaded;
+        var _state = this.state,
+            imgLoaded = _state.imgLoaded,
+            imgHasError = _state.imgHasError;
 
 
         if (!imgs || !imgs.length) return null;
@@ -1124,16 +1172,16 @@
           null,
           React__default.createElement(
             reactZoomPanPinch.TransformWrapper,
-            null,
+            { ref: this.transformWrapperRef },
             function (_ref2) {
               var zoomIn = _ref2.zoomIn,
                   zoomOut = _ref2.zoomOut,
                   resetTransform = _ref2.resetTransform,
-                  rest = objectWithoutProperties(_ref2, ["zoomIn", "zoomOut", "resetTransform"]);
+                  state = _ref2.state;
               return React__default.createElement(
                 React__default.Fragment,
                 null,
-                imgLoaded && React__default.createElement(
+                imgLoaded && !imgHasError && React__default.createElement(
                   Tools,
                   null,
                   React__default.createElement(
@@ -1145,22 +1193,31 @@
                         background: "rgba(0, 0, 0, 0.6)",
                         height: "36px",
                         width: "108px"
-                        // height: "3em",
-                        // width: "8em"
                       } },
                     React__default.createElement(
                       ToolsButton,
-                      { title: "Zoom out", style: { bottom: "6px" }, left: true, onClick: function onClick() {
+                      {
+                        title: "Zoom out",
+                        style: { bottom: "6px" },
+                        left: true,
+                        onClick: function onClick() {
                           return zoomOut();
-                        } },
+                        },
+                        disabled: state.scale <= 1
+                      },
                       React__default.createElement(Icon, { type: "minus" })
                     ),
                     React__default.createElement(
                       ToolsButton,
-                      { title: "Reset zoom", borderRadius: "0px", onClick: function onClick() {
+                      {
+                        title: "Reset zoom",
+                        borderRadius: "0px",
+                        onClick: function onClick() {
                           return resetTransform();
-                        } },
-                      React__default.createElement(Icon, { type: "cross" })
+                        },
+                        disabled: state.scale === 1
+                      },
+                      React__default.createElement(Icon, { type: "resetZoom" })
                     ),
                     React__default.createElement(
                       ToolsButton,
@@ -1181,6 +1238,7 @@
                     src: img.src,
                     srcSet: sourceSet,
                     imgLoaded: imgLoaded,
+                    onError: _this3.handleImgError,
                     style: {
                       cursor: onClickImg ? "pointer" : "auto",
                       maxHeight: "calc(100vh - " + heightOffset
@@ -1271,13 +1329,9 @@
         var Spinner$$1 = spinner;
         if (spinnerDisabled) return null;
         return React__default.createElement(
-          SpinnerDiv
-          // className={css(
-          //   this.classes.spinner,
-          //   !imgLoaded && this.classes.spinnerActive
-          // )}
-          ,
-          { spinnerActive: !imgLoaded
+          SpinnerDiv,
+          {
+            spinnerActive: !imgLoaded
           },
           React__default.createElement(Spinner$$1, { color: spinnerColor, size: spinnerSize })
         );
@@ -1288,6 +1342,7 @@
         return React__default.createElement(
           ThemeContext.Provider,
           { value: this.state },
+          React__default.createElement(GlobalStyle, null),
           this.renderDialog(this.state)
         );
       }
@@ -1306,7 +1361,8 @@
       src: PropTypes.string.isRequired,
       srcSet: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
       caption: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-      thumbnail: PropTypes.string
+      thumbnail: PropTypes.string,
+      alt: PropTypes.string
     })).isRequired,
     isOpen: PropTypes.bool,
     leftArrowTitle: PropTypes.string,
@@ -1347,17 +1403,17 @@
     width: 1024
   };
 
-  var Figure = styled.figure(_templateObject$7);
+  var Figure = styled__default.figure(_templateObject$8);
 
-  var SpinnerDiv = styled.div(_templateObject2$3, function (props) {
+  var SpinnerDiv = styled__default.div(_templateObject2$3, function (props) {
     return props.spinnerActive ? 1 : 0;
   });
 
-  var Tools = styled.div(_templateObject3$1);
+  var Tools = styled__default.div(_templateObject3$1);
 
-  var ToolsButton = styled.button(_templateObject4$1);
+  var ToolsButton = styled__default.button(_templateObject4$1);
 
-  var Img = styled.img(_templateObject5$1, function (props) {
+  var Img = styled__default.img(_templateObject5$1, function (props) {
     return props.imgLoaded && "1";
   });
 

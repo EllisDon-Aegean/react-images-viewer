@@ -6,8 +6,9 @@ import close from "../icons/close";
 import plus from "../icons/plus";
 import minus from "../icons/minus";
 import cross from "../icons/cross";
+import resetZoom from "../icons/reset_zoom";
 
-const icons = { arrowLeft, arrowRight, close, plus, cross, minus };
+const icons = { arrowLeft, arrowRight, close, plus, cross, minus, resetZoom };
 
 const Icon = ({ fill, type, ...props }) => {
   const icon = icons[type];

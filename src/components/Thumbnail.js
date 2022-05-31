@@ -1,13 +1,26 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import defaults from '../theme'
+import FALLBACK_IMAGES from '../constants/fallback-images';
 
 
 function Thumbnail ({ index, src, thumbnail, active, onClick, theme }) {
-  const url = thumbnail || src
-  //const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
+  const url = thumbnail || src;
+  
+  useEffect(() => {
+    const img = new Image();
+    img.onerror = handleImgError;
+    img.src = url;
+  }, []);
+
+  const thumbnailDivRef = useRef(null);
+
+  const handleImgError = useCallback(() => {
+    if (!thumbnailDivRef.current) return;
+    thumbnailDivRef.current.style.backgroundImage = `url("${FALLBACK_IMAGES.REGULAR}")`;
+  }, []);
 
   return (
     <ThumbnailDiv
@@ -19,6 +32,7 @@ function Thumbnail ({ index, src, thumbnail, active, onClick, theme }) {
         e.stopPropagation()
         onClick(index)
       }}
+      ref={thumbnailDivRef}
       style={{ backgroundImage: `url("${url}")` }}
     />
   )

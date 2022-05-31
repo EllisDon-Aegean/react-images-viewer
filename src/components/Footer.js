@@ -3,31 +3,29 @@ import React from 'react'
 import styled from 'styled-components';
 import defaults from '../theme'
 
-function Footer ({ countCurr, countSeparator, countTotal, showCount, theme, ...props }) {
+const FooterDiv = styled.div`
+  box-sizing: border-box;
+  color: ${(props) => props.defaults.footer.color};
+  cursor: auto;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  line-height: 1.3;
+  padding-top: ${(props) => props.defaults.footer.gutter.vertical}px;
+  padding-right: ${(props) => props.defaults.footer.gutter.horizontal}px;
+  padding-bottom: ${(props) => props.defaults.footer.gutter.vertical}px;
+  padding-left: ${(props) => props.defaults.footer.gutter.horizontal}px;
+`;
+
+const FooterCountDiv = styled.div`
+  color: ${(props) => props.defaults.footer.count.color};
+  font-size: ${(props) => props.defaults.footer.count.fontSize};
+  padding-left: 1em; // add a small gutter for the caption
+  font-family: ${(props) => props.defaults.footer.count.font};
+`;
+
+function Footer ({ countCurr, countSeparator, countTotal, showCount }) {
   if (!showCount) return null
-
-  //const classes = StyleSheet.create(deepMerge(defaultStyles, theme))
-
-  const FooterDiv = styled.div`
-    box-sizing: border-box;
-    color: ${(props) => props.defaults.footer.color};
-    cursor: auto;
-    display: flex;
-    justify-content: space-between;
-    left: 0;
-    line-height: 1.3;
-    padding-top: ${(props) => props.defaults.footer.gutter.vertical}px;
-    padding-right: ${(props) => props.defaults.footer.gutter.horizontal}px;
-    padding-bottom: ${(props) => props.defaults.footer.gutter.vertical}px;
-    padding-left: ${(props) => props.defaults.footer.gutter.horizontal}px;
-  `;
-
-  const FooterCountDiv = styled.div`
-    color: ${(props) => props.defaults.footer.count.color};
-    font-size: ${(props) => props.defaults.footer.count.fontSize};
-    padding-left: 1em; // add a small gutter for the caption
-    font-family: ${(props) => props.defaults.footer.count.font};
-  `;
 
   const imgCount = showCount ? (
     <FooterCountDiv defaults={defaults}>

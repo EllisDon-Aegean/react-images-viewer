@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, createRef } from "react";
 import ScrollLock from "react-scrolllock";
 import styled from "styled-components";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 import defaultTheme from "./theme";
+import GlobalStyle from "./components/GlobalStyle";
 import Arrow from "./components/Arrow";
 import Container from "./components/Container";
 import Footer from "./components/Footer";
@@ -13,7 +15,7 @@ import DefaultSpinner from "./components/Spinner";
 import Icon from "./components/Icon";
 
 import { bindFunctions, canUseDom, deepMerge } from "./utils/util";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+import FALLBACK_IMAGES from "./constants/fallback-images";
 
 function normalizeSourceSet(data) {
   const sourceSet = data.srcSet || data.srcset;
@@ -43,9 +45,12 @@ class ImgsViewer extends Component {
     };
     this.state = {
       imgLoaded: false,
+      imgHasError: false,
       theme: this.theme,
       toggleTheme: this.toggleTheme,
     };
+
+    this.transformWrapperRef = createRef();
 
     bindFunctions.call(this, [
       "gotoNext",
@@ -53,6 +58,7 @@ class ImgsViewer extends Component {
       "closeBackdrop",
       "handleKeyboardInput",
       "handleImgLoaded",
+      "handleImgError"
     ]);
   }
   componentDidMount() {
@@ -61,7 +67,7 @@ class ImgsViewer extends Component {
         window.addEventListener("keydown", this.handleKeyboardInput);
       }
       if (typeof this.props.currImg === "number") {
-        this.preloadImg(this.props.currImg, this.handleImgLoaded);
+        this.preloadImg(this.props.currImg, this.handleImgLoaded, this.handleImgError);
       }
     }
   }
@@ -76,7 +82,6 @@ class ImgsViewer extends Component {
     if (nextProps.preloadNextImg) {
       const nextIdx = nextProps.currImg + 1;
       const prevIdx = nextProps.currImg - 1;
-      // debugger
       // if (!this) return null
       this.preloadImg(prevIdx);
       this.preloadImg(nextIdx);
@@ -86,14 +91,11 @@ class ImgsViewer extends Component {
       this.props.currImg !== nextProps.currImg ||
       (!this.props.isOpen && nextProps.isOpen)
     ) {
-      const img = this.preloadImgData(
+      this.preloadImgData(
         nextProps.imgs[nextProps.currImg],
-        this.handleImgLoaded
+        this.handleImgLoaded,
+        this.handleImgError
       );
-      if (img)
-        this.setState({
-          imgLoaded: img.complete,
-        });
     }
 
     // add/remove event listeners
@@ -120,17 +122,17 @@ class ImgsViewer extends Component {
   // Methods
   // ====================
 
-  preloadImg(idx, onload) {
-    return this.preloadImgData(this.props.imgs[idx], onload);
+  preloadImg(idx, onload, onerror) {
+    return this.preloadImgData(this.props.imgs[idx], onload, onerror);
   }
-  preloadImgData(data, onload) {
+  preloadImgData(data, onload, onerror) {
     if (!data) return;
 
     const img = new Image();
     const sourceSet = normalizeSourceSet(data);
 
     // Todo: add error handling for missing imgs
-    img.onerror = onload;
+    img.onerror = onerror;
     img.onload = onload;
     img.src = data.src;
 
@@ -149,6 +151,10 @@ class ImgsViewer extends Component {
       event.stopPropagation();
     }
 
+    if (this.transformWrapperRef.current) {
+      this.transformWrapperRef.current.resetTransform();
+    }
+
     this.props.onClickNext();
   }
   gotoPrev(event) {
@@ -160,6 +166,10 @@ class ImgsViewer extends Component {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
+    }
+
+    if (this.transformWrapperRef.current) {
+      this.transformWrapperRef.current.resetTransform();
     }
 
     this.props.onClickPrev();
@@ -189,10 +199,19 @@ class ImgsViewer extends Component {
     }
     return false;
   }
-  handleImgLoaded() {
-    this.setState({
-      imgLoaded: true,
-    });
+
+  handleImgLoaded(e) {
+    const { imgHasError } = this.state;
+    if (e.target.src === FALLBACK_IMAGES.LARGE && imgHasError) {
+      this.setState({ imgLoaded: true });
+    } else {
+      this.setState({ imgLoaded: true, imgHasError: false });
+    }
+  }
+
+  handleImgError(e) {
+    if (e && e.target) e.target.src = FALLBACK_IMAGES.LARGE;
+    this.setState({ imgHasError: true });
   }
 
   // ====================
@@ -224,6 +243,7 @@ class ImgsViewer extends Component {
         onClick={this.gotoNext}
         title={this.props.rightArrowTitle}
         type="button"
+        
       />
     );
   }
@@ -262,10 +282,10 @@ class ImgsViewer extends Component {
                   {imgLoaded && this.renderHeader(theme)}{" "}
                   {this.renderImgs(theme)}
                   {this.renderSpinner()} {imgLoaded && this.renderFooter(theme)}
+                  {imgLoaded && this.renderArrowPrev(theme)}
+                  {imgLoaded && this.renderArrowNext(theme)}
                 </div>
                 {imgLoaded && this.renderThumbnails(theme)}
-                {imgLoaded && this.renderArrowPrev(theme)}
-                {imgLoaded && this.renderArrowNext(theme)}
                 {this.props.preventScroll && <ScrollLock />}
               </Fragment>
             </Container>
@@ -277,7 +297,10 @@ class ImgsViewer extends Component {
   renderImgs(theme) {
     const { currImg, imgs, onClickImg, showThumbnails } = this.props;
 
-    const { imgLoaded } = this.state;
+    const {
+      imgLoaded,
+      imgHasError
+    } = this.state;
 
     if (!imgs || !imgs.length) return null;
 
@@ -295,10 +318,10 @@ class ImgsViewer extends Component {
 
     return (
       <Figure>
-        <TransformWrapper>
-          {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+        <TransformWrapper ref={this.transformWrapperRef}>
+          {({ zoomIn, zoomOut, resetTransform, state }) => (
             <React.Fragment>
-              {imgLoaded && <Tools>
+              {imgLoaded && !imgHasError && <Tools>
                 <div style={{
                   borderRadius: "2px",
                   padding: "2px",
@@ -306,14 +329,23 @@ class ImgsViewer extends Component {
                   background: "rgba(0, 0, 0, 0.6)",
                   height: "36px",
                   width: "108px"
-                  // height: "3em",
-                  // width: "8em"
                 }}>
-                  <ToolsButton title="Zoom out" style={{bottom: "6px"}} left onClick={() => zoomOut()}>
+                  <ToolsButton
+                    title="Zoom out"
+                    style={{bottom: "6px"}}
+                    left
+                    onClick={() => zoomOut()}
+                    disabled={state.scale <= 1}
+                  >
                     <Icon type="minus" />
                   </ToolsButton>
-                  <ToolsButton title="Reset zoom" borderRadius="0px" onClick={() => resetTransform()}>
-                    <Icon type="cross" />
+                  <ToolsButton
+                    title="Reset zoom"
+                    borderRadius="0px"
+                    onClick={() => resetTransform()}
+                    disabled={state.scale === 1}
+                  >
+                    <Icon type="resetZoom" />
                   </ToolsButton>
                   <ToolsButton title="Zoom in" right onClick={() => zoomIn()}>
                     <Icon type="plus" />  
@@ -328,6 +360,7 @@ class ImgsViewer extends Component {
                   src={img.src}
                   srcSet={sourceSet}
                   imgLoaded={imgLoaded}
+                  onError={this.handleImgError}
                   style={{
                     cursor: onClickImg ? "pointer" : "auto",
                     maxHeight: `calc(100vh - ${heightOffset}`,
@@ -402,10 +435,6 @@ class ImgsViewer extends Component {
     if (spinnerDisabled) return null;
     return (
       <SpinnerDiv
-        // className={css(
-        //   this.classes.spinner,
-        //   !imgLoaded && this.classes.spinnerActive
-        // )}
         spinnerActive={!imgLoaded}
       >
         <Spinner color={spinnerColor} size={spinnerSize} />
@@ -416,6 +445,7 @@ class ImgsViewer extends Component {
   render() {
     return (
       <ThemeContext.Provider value={this.state}>
+        <GlobalStyle />
         {this.renderDialog(this.state)}
       </ThemeContext.Provider>
     );
@@ -435,6 +465,7 @@ ImgsViewer.propTypes = {
       srcSet: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
       caption: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
       thumbnail: PropTypes.string,
+      alt: PropTypes.string
     })
   ).isRequired,
   isOpen: PropTypes.bool,
@@ -483,6 +514,7 @@ const Figure = styled.figure`
   place-content: center;
   min-height: 70vh;
   align-items: center;
+  max-width: 768px;
 `;
 
 const SpinnerDiv = styled.div`
@@ -517,10 +549,13 @@ const ToolsButton = styled.button`
   :hover {
     background-color: rgba(255, 255, 255, 0.6);
   }
+  :disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 `;
 
 const Img = styled.img`
-
   display: block; // removes browser default gutter
   height: auto;
   margin: 0 auto; // main center on very short screens or very narrow img
