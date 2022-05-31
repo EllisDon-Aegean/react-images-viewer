@@ -158,8 +158,16 @@
   		return "<svg fill=\"" + fill + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 512 512\" xml:space=\"preserve\">\n\t\t<path d=\"M213.7,256L213.7,256L213.7,256L380.9,81.9c4.2-4.3,4.1-11.4-0.2-15.8l-29.9-30.6c-4.3-4.4-11.3-4.5-15.5-0.2L131.1,247.9 c-2.2,2.2-3.2,5.2-3,8.1c-0.1,3,0.9,5.9,3,8.1l204.2,212.7c4.2,4.3,11.2,4.2,15.5-0.2l29.9-30.6c4.3-4.4,4.4-11.5,0.2-15.8 L213.7,256z\"/>\n\t</svg>";
   });
 
+  var filledArrowLeft = (function () {
+     return "<svg width=\"40\" height=\"41\" viewBox=\"0 0 40 41\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n    <path d=\"M0 20.5C0 9.45431 8.95431 0.5 20 0.5C31.0457 0.5 40 9.45431 40 20.5C40 31.5457 31.0457 40.5 20 40.5C8.95431 40.5 0 31.5457 0 20.5Z\" fill=\"black\"/>\n    <path d=\"M24.7071 27.7929C25.0976 28.1834 25.0976 28.8166 24.7071 29.2071C24.3166 29.5976 23.6834 29.5976 23.2929 29.2071L15.2929 21.2071C14.9024 20.8166 14.9024 20.1834 15.2929 19.7929L23.2929 11.7929C23.6834 11.4024 24.3166 11.4024 24.7071 11.7929C25.0976 12.1834 25.0976 12.8166 24.7071 13.2071L17.4142 20.5L24.7071 27.7929Z\" fill=\"white\"/>\n    </svg>\n\t";
+  });
+
   var arrowRight = (function (fill) {
   		return "<svg fill=\"" + fill + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 512 512\" xml:space=\"preserve\">\n\t\t<path d=\"M298.3,256L298.3,256L298.3,256L131.1,81.9c-4.2-4.3-4.1-11.4,0.2-15.8l29.9-30.6c4.3-4.4,11.3-4.5,15.5-0.2l204.2,212.7 c2.2,2.2,3.2,5.2,3,8.1c0.1,3-0.9,5.9-3,8.1L176.7,476.8c-4.2,4.3-11.2,4.2-15.5-0.2L131.3,446c-4.3-4.4-4.4-11.5-0.2-15.8 L298.3,256z\"/>\n\t</svg>";
+  });
+
+  var filledArrowRight = (function () {
+    return "<svg width=\"40\" height=\"41\" viewBox=\"0 0 40 41\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n    <path d=\"M0 20.5C0 9.45431 8.95431 0.5 20 0.5C31.0457 0.5 40 9.45431 40 20.5C40 31.5457 31.0457 40.5 20 40.5C8.95431 40.5 0 31.5457 0 20.5Z\" fill=\"black\"/>\n    <path d=\"M15.2929 13.2071C14.9024 12.8166 14.9024 12.1834 15.2929 11.7929C15.6834 11.4024 16.3166 11.4024 16.7071 11.7929L24.7071 19.7929C25.0976 20.1834 25.0976 20.8166 24.7071 21.2071L16.7071 29.2071C16.3166 29.5976 15.6834 29.5976 15.2929 29.2071C14.9024 28.8166 14.9024 28.1834 15.2929 27.7929L22.5858 20.5L15.2929 13.2071Z\" fill=\"white\"/>\n  </svg>\n\t";
   });
 
   var close = (function (fill) {
@@ -182,7 +190,11 @@
     return "<svg fill=\"" + fill + "\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\">\n  <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M11.7106 11.0006H12.5006L16.7406 15.2606C17.1506 15.6706 17.1506 16.3406 16.7406 16.7506C16.3306 17.1606 15.6606 17.1606 15.2506 16.7506L11.0006 12.5006V11.7106L10.7306 11.4306C9.33063 12.6306 7.42063 13.2506 5.39063 12.9106C2.61063 12.4406 0.390626 10.1206 0.0506256 7.32063C-0.469374 3.09063 3.09063 -0.469374 7.32063 0.0506256C10.1206 0.390626 12.4406 2.61063 12.9106 5.39063C13.2506 7.42063 12.6306 9.33063 11.4306 10.7306L11.7106 11.0006ZM2.00063 6.50063C2.00063 8.99063 4.01063 11.0006 6.50063 11.0006C8.99063 11.0006 11.0006 8.99063 11.0006 6.50063C11.0006 4.01063 8.99063 2.00063 6.50063 2.00063C4.01063 2.00063 2.00063 4.01063 2.00063 6.50063Z\"/>\n</svg>";
   });
 
-  var icons = { arrowLeft: arrowLeft, arrowRight: arrowRight, close: close, plus: plus, cross: cross, minus: minus, resetZoom: resetZoom };
+  var icons = {
+    arrowLeft: arrowLeft, filledArrowLeft: filledArrowLeft,
+    arrowRight: arrowRight, filledArrowRight: filledArrowRight,
+    close: close, plus: plus, cross: cross, minus: minus, resetZoom: resetZoom
+  };
 
   var Icon = function Icon(_ref) {
     var fill = _ref.fill,
@@ -830,7 +842,7 @@
     });
   }
 
-  var _templateObject$8 = taggedTemplateLiteral(["\n  margin: 0px;\n  position: relative;\n  display: flex;\n  place-content: center;\n  min-height: 70vh;\n  align-items: center;\n  max-width: 768px;\n"], ["\n  margin: 0px;\n  position: relative;\n  display: flex;\n  place-content: center;\n  min-height: 70vh;\n  align-items: center;\n  max-width: 768px;\n"]),
+  var _templateObject$8 = taggedTemplateLiteral(["\n  margin: 0px;\n  position: relative;\n  display: flex;\n  place-content: center;\n  min-height: 70vh;\n  align-items: center;\n"], ["\n  margin: 0px;\n  position: relative;\n  display: flex;\n  place-content: center;\n  min-height: 70vh;\n  align-items: center;\n"]),
       _templateObject2$3 = taggedTemplateLiteral(["\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n\n  // opacity animation to make spinner appear with delay\n  opacity: ", ";\n  transition: opacity .3s;\n  pointer-events: none;\n"], ["\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n\n  // opacity animation to make spinner appear with delay\n  opacity: ", ";\n  transition: opacity .3s;\n  pointer-events: none;\n"]),
       _templateObject3$1 = taggedTemplateLiteral(["\n  position: absolute;\n  z-index: 8000;\n  width: 100%;\n  display: flex;\n  place-content: center;\n  bottom: 3em;\n"], ["\n  position: absolute;\n  z-index: 8000;\n  width: 100%;\n  display: flex;\n  place-content: center;\n  bottom: 3em;\n"]),
       _templateObject4$1 = taggedTemplateLiteral(["\n  height: 100%;\n  width: 33.333%;\n  border: none;\n  background-color: rgba(0, 0, 0, 0);\n  color: white;\n  cursor: pointer;\n  transition: all ease-in-out 0.1s;\n  :hover {\n    background-color: rgba(255, 255, 255, 0.6);\n  }\n  :disabled {\n    opacity: 0.5;\n    pointer-events: none;\n  }\n"], ["\n  height: 100%;\n  width: 33.333%;\n  border: none;\n  background-color: rgba(0, 0, 0, 0);\n  color: white;\n  cursor: pointer;\n  transition: all ease-in-out 0.1s;\n  :hover {\n    background-color: rgba(255, 255, 255, 0.6);\n  }\n  :disabled {\n    opacity: 0.5;\n    pointer-events: none;\n  }\n"]),
@@ -1059,7 +1071,7 @@
         return React__default.createElement(Arrow, {
           theme: theme$$1,
           direction: "left",
-          icon: "arrowLeft",
+          icon: "filledArrowLeft",
           onClick: this.gotoPrev,
           title: this.props.leftArrowTitle,
           type: "button"
@@ -1073,7 +1085,7 @@
         return React__default.createElement(Arrow, {
           theme: theme$$1,
           direction: "right",
-          icon: "arrowRight",
+          icon: "filledArrowRight",
           onClick: this.gotoNext,
           title: this.props.rightArrowTitle,
           type: "button"

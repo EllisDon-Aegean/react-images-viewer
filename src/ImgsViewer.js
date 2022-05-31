@@ -225,7 +225,7 @@ class ImgsViewer extends Component {
       <Arrow
         theme={theme}
         direction="left"
-        icon="arrowLeft"
+        icon="filledArrowLeft"
         onClick={this.gotoPrev}
         title={this.props.leftArrowTitle}
         type="button"
@@ -239,7 +239,7 @@ class ImgsViewer extends Component {
       <Arrow
         theme={theme}
         direction="right"
-        icon="arrowRight"
+        icon="filledArrowRight"
         onClick={this.gotoNext}
         title={this.props.rightArrowTitle}
         type="button"
@@ -514,7 +514,6 @@ const Figure = styled.figure`
   place-content: center;
   min-height: 70vh;
   align-items: center;
-  max-width: 768px;
 `;
 
 const SpinnerDiv = styled.div`
