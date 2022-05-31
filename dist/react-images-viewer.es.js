@@ -1072,8 +1072,7 @@ var ImgsViewer = function (_Component) {
         icon: "filledArrowLeft",
         onClick: this.gotoPrev,
         title: this.props.leftArrowTitle,
-        type: "button",
-        horizontalGutter: -75
+        type: "button"
       });
     }
   }, {
@@ -1088,7 +1087,7 @@ var ImgsViewer = function (_Component) {
         onClick: this.gotoNext,
         title: this.props.rightArrowTitle,
         type: "button",
-        horizontalGutter: -50
+        horizontalGutter: 25
       });
     }
   }, {

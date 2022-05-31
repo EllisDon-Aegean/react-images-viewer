@@ -229,7 +229,6 @@ class ImgsViewer extends Component {
         onClick={this.gotoPrev}
         title={this.props.leftArrowTitle}
         type="button"
-        horizontalGutter={-75}
       />
     );
   }
@@ -244,7 +243,7 @@ class ImgsViewer extends Component {
         onClick={this.gotoNext}
         title={this.props.rightArrowTitle}
         type="button"
-        horizontalGutter={-50}
+        horizontalGutter={25}
       />
     );
   }
