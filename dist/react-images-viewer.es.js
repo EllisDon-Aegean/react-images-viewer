@@ -419,6 +419,7 @@ function Header(_ref) {
         React.createElement(
           CloseButton,
           {
+            type: 'button',
             title: closeBtnTitle,
             onClick: onClose
           },
@@ -1207,6 +1208,7 @@ var ImgsViewer = function (_Component) {
                   React.createElement(
                     ToolsButton,
                     {
+                      type: "button",
                       title: "Zoom out",
                       style: { bottom: "6px" },
                       left: true,
@@ -1220,6 +1222,7 @@ var ImgsViewer = function (_Component) {
                   React.createElement(
                     ToolsButton,
                     {
+                      type: "button",
                       title: "Reset zoom",
                       borderRadius: "0px",
                       onClick: function onClick() {
@@ -1231,7 +1234,7 @@ var ImgsViewer = function (_Component) {
                   ),
                   React.createElement(
                     ToolsButton,
-                    { title: "Zoom in", right: true, onClick: function onClick() {
+                    { type: "button", title: "Zoom in", right: true, onClick: function onClick() {
                         return zoomIn();
                       } },
                     React.createElement(Icon, { type: "plus" })

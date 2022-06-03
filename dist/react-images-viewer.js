@@ -424,6 +424,7 @@
           React__default.createElement(
             CloseButton,
             {
+              type: 'button',
               title: closeBtnTitle,
               onClick: onClose
             },
@@ -1212,6 +1213,7 @@
                     React__default.createElement(
                       ToolsButton,
                       {
+                        type: "button",
                         title: "Zoom out",
                         style: { bottom: "6px" },
                         left: true,
@@ -1225,6 +1227,7 @@
                     React__default.createElement(
                       ToolsButton,
                       {
+                        type: "button",
                         title: "Reset zoom",
                         borderRadius: "0px",
                         onClick: function onClick() {
@@ -1236,7 +1239,7 @@
                     ),
                     React__default.createElement(
                       ToolsButton,
-                      { title: "Zoom in", right: true, onClick: function onClick() {
+                      { type: "button", title: "Zoom in", right: true, onClick: function onClick() {
                           return zoomIn();
                         } },
                       React__default.createElement(Icon, { type: "plus" })
