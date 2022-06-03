@@ -14,6 +14,7 @@ function Header ({ caption, customControls, onClose, showCloseBtn, closeBtnTitle
         {!!showCloseBtn && (
           <TitleDiv>
             <CloseButton
+              type="button"
               title={closeBtnTitle}
               onClick={onClose}
             >

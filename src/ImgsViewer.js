@@ -331,6 +331,7 @@ class ImgsViewer extends Component {
                   width: "108px"
                 }}>
                   <ToolsButton
+                    type="button"
                     title="Zoom out"
                     style={{bottom: "6px"}}
                     left
@@ -340,6 +341,7 @@ class ImgsViewer extends Component {
                     <Icon type="minus" />
                   </ToolsButton>
                   <ToolsButton
+                    type="button"
                     title="Reset zoom"
                     borderRadius="0px"
                     onClick={() => resetTransform()}
@@ -347,7 +349,7 @@ class ImgsViewer extends Component {
                   >
                     <Icon type="resetZoom" />
                   </ToolsButton>
-                  <ToolsButton title="Zoom in" right onClick={() => zoomIn()}>
+                  <ToolsButton type="button" title="Zoom in" right onClick={() => zoomIn()}>
                     <Icon type="plus" />  
                   </ToolsButton>                  
                 </div>
